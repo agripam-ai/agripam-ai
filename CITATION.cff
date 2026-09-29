@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use AgriPAM-AI, please cite the archived software release below."
+title: "AgriPAM-AI: auditable design support for agricultural microbial communities and genome editing"
+type: software
+authors:
+  - name: "AgriPAM-AI team"
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/agripam-ai/agripam-ai"
+url: "https://agripam-ai.streamlit.app"
+abstract: >-
+  AgriPAM-AI is an open, evidence-aware workflow connecting agricultural
+  microbial-bank analysis, synthetic-community design, chassis selection,
+  genome-editing assessment and screened construct design. Its outputs are
+  computational decision-support results and do not establish editing activity.
+keywords:
+  - agricultural microbiology
+  - synthetic microbial community
+  - genome editing
+  - CRISPR
+  - bioinformatics
+

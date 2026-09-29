@@ -1,0 +1,33 @@
+{
+  "title": "AgriPAM-AI: auditable design support for agricultural microbial communities and genome editing",
+  "description": "Versioned software release connecting agricultural microbial-bank evidence, synthetic-community design, chassis selection, genome-editing assessment and screened construct design. Outputs are computational decision-support results, not demonstrations of editing activity.",
+  "creators": [
+    {
+      "name": "AgriPAM-AI team"
+    }
+  ],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "version": "1.0.0",
+  "keywords": [
+    "agricultural microbiology",
+    "synthetic microbial community",
+    "genome editing",
+    "CRISPR",
+    "bioinformatics"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/agripam-ai/agripam-ai",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "https://agripam-ai.streamlit.app",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ]
+}
+

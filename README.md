@@ -17,7 +17,7 @@ Live application: **https://agripam-ai.streamlit.app** (no installation or sign-
 
 The application has seven windows. Start with **SynCom candidate bank → Analyze your own bank**, where you can download the filled example workbook, upload it and press *Run SynCom analysis*.
 
-**Option 1: Python 3.9 or later**
+**Option 1: Python 3.10 or later**
 
 ```bash
 python3 -m venv .venv
@@ -61,3 +61,14 @@ Random procedures use the fixed seed 42. Outputs carry versions and SHA-256 chec
 ## Licence and contact
 
 MIT licence (see `LICENSE`). Contact: rhizoforgeai@gmail.com
+
+## Citation and archived release
+
+Citation metadata are provided in `CITATION.cff`. Version `1.0.0` is being
+prepared as the competition and manuscript release. The permanent Zenodo DOI
+will be added after the competition version is frozen and the corresponding
+GitHub release is archived. Until then, cite the repository URL and the exact
+Git commit used for an analysis.
+
+The maintainer checklist for creating the immutable tag, Zenodo archive and
+manuscript citation is in `docs/RELEASE_AND_DOI.md`.
