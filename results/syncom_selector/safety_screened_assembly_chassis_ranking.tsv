@@ -1,3 +1,4 @@
-strain	safety_eligible	safety_note	fit_score	fit_evidence_n	fit_notes	dispensability_score	functions_lost_if_removed	editability_precedent_score	editability_note	composite	rank
-B3	True	no project flag	100.0	1		83.3	glucanase	100.0	species-level editing precedent in the project knowledgebase	94.2	1
-B55	True	no project flag	100.0	1		66.7	K_solubilization;N_free_growth	20.0	no recorded editing precedent; genome-based editability not yet computed	68.3	2
+strain	safety_eligible	safety_note	fit_score	fit_evidence_n	fit_notes	dispensability_score	functions_lost_if_removed	editability_precedent_score	editability_note	composite	rank	kind
+B3	True	no hold declared	100.0	1		87.5	glucanase	100.0	species-level editing precedent declared by the user	95.6	1	bacterium
+FI20	True	no hold declared	100.0	2		87.5	biocontrol_breadth	60.0	genus-level precedent declared by the user	85.6	2	fungus
+B55	True	no hold declared	100.0	1		75.0	k_solubilization;n_free_growth	20.0	no editing precedent declared	71.2	3	bacterium

@@ -156,7 +156,7 @@ This is the community-level layer (`agripam/syncom.py`, `scripts/run_syncom_sele
 4. **Safety gate**: a strain marked as a biosafety hold in the project cohort table, or with a pathogen-screen score of 30 or more, is never ranked.
 5. **Check robustness** (`weight_sensitivity`): re-rank under 2,000 random weightings (seed 42) and report how often each strain stays first.
 
-**Worked result (planned community FI20 with B1, B39, B56).** B1 is excluded by the safety gate. B56 ranks first because the other members already cover its functions and its genus has editing precedent. B39 is the only strong chitinase producer, so editing it puts that function at risk. The community lacks β-glucanase; the strongest producers inhibit FI20 or are flagged, and compatible producers (B21, B28, B3, B20) exist, so the tool recommends adding one of those.
+**Worked result (planned community FI20 with B1, B39, B56).** B1 is excluded by the safety gate. B56 is the top bacterium (composite 90, tied with the fungal anchor FI20) because the other members already cover its functions and its genus has editing precedent. B39 scores 75 (dispensability 85.7): it is the only strong chitinase producer, so editing it puts that function at risk. B56 stays at or above B39 under all 2,000 random weightings. The community lacks β-glucanase; the strongest producers inhibit FI20 or are flagged, and compatible producers (B21, B28, B3, B20) exist, so the tool recommends adding one of those.
 
 ## 11. Step 9: from parts to bench (Parts & constructs tab)
 

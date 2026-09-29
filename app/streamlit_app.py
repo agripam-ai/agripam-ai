@@ -2087,6 +2087,8 @@ with tabs[2], st.expander("Community-aware chassis selection: which SynCom membe
         c1, c2, c3 = st.columns(3)
         c1.metric("Bacterial members", ", ".join(info["bacterial_members"]))
         c2.metric("Top-ranked chassis", info["top_chassis"] or "none eligible")
+        if info.get("top_bacterial_chassis") and info["top_bacterial_chassis"] != info["top_chassis"]:
+            st.caption(f"Top bacterium: {info['top_bacterial_chassis']}. A fungal anchor can tie in the ranking; editing a fungus needs its own biosafety and precedent review.")
         c3.metric("Functions missing", len(info["functions_missing"]))
         st.caption("Fungal partner used for compatibility: " + ", ".join(info["fungal_members"]))
         if info["chassis_excluded_for_safety"]:

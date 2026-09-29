@@ -9,23 +9,28 @@
       "FI20"
     ],
     "functions_delivered": [
-      "K_solubilization",
-      "N_free_growth",
-      "P_solubilization",
+      "biocontrol breadth",
+      "biocontrol peak",
       "catalase",
-      "chitinase"
+      "chitinase",
+      "k solubilization",
+      "n free growth",
+      "p solubilization"
     ],
     "functions_missing": [
-      "beta-glucanase"
+      "glucanase"
     ],
-    "top_chassis": "B56",
+    "top_chassis": "FI20",
+    "top_bacterial_chassis": "B56",
     "chassis_excluded_for_safety": [
       "B1"
     ],
     "top_choice_frequency_under_random_weights": {
-      "B56": 1.0,
+      "FI20": 1.0,
+      "B56": 0.0,
       "B39": 0.0
-    }
+    },
+    "warnings": []
   },
   "safety_screened_assembly": {
     "bacterial_members": [
@@ -36,19 +41,24 @@
       "FI20"
     ],
     "functions_delivered": [
-      "K_solubilization",
-      "N_free_growth",
-      "P_solubilization",
+      "biocontrol breadth",
+      "biocontrol peak",
       "catalase",
       "chitinase",
-      "glucanase"
+      "glucanase",
+      "k solubilization",
+      "n free growth",
+      "p solubilization"
     ],
     "functions_missing": [],
     "top_chassis": "B3",
+    "top_bacterial_chassis": "B3",
     "chassis_excluded_for_safety": [],
     "top_choice_frequency_under_random_weights": {
       "B3": 1.0,
+      "FI20": 0.0,
       "B55": 0.0
-    }
+    },
+    "warnings": []
   }
 }

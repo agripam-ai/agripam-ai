@@ -1,4 +1,5 @@
-strain	safety_eligible	safety_note	fit_score	fit_evidence_n	fit_notes	dispensability_score	functions_lost_if_removed	editability_precedent_score	editability_note	composite	rank
-B56	True	no project flag	100.0	1		100.0		60.0	genus-level precedent only	90.0	1
-B39	True	no project flag	100.0	1		80.0	chitinase	20.0	no recorded editing precedent; genome-based editability not yet computed	73.0	2
-B1	False	cohort table: biosafety hold; pathogen-screen score 54.2 >= 30; genus requires biosafety review	100.0	1		100.0		20.0	no recorded editing precedent; genome-based editability not yet computed	0.0	
+strain	safety_eligible	safety_note	fit_score	fit_evidence_n	fit_notes	dispensability_score	functions_lost_if_removed	editability_precedent_score	editability_note	composite	rank	kind
+FI20	True	no hold declared	100.0	3		100.0		60.0	genus-level precedent declared by the user	90.0	1	fungus
+B56	True	no hold declared	100.0	1		100.0		60.0	genus-level precedent declared by the user	90.0	2	bacterium
+B39	True	no hold declared	100.0	1		85.7	chitinase	20.0	no editing precedent declared	75.0	3	bacterium
+B1	False	biosafety hold declared; pathogen-screen score 54.2 >= 30	100.0	1		100.0		20.0	no editing precedent declared	0.0		bacterium

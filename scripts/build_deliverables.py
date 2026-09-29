@@ -161,18 +161,18 @@ def slides_presentation():
 
     # 6 ranking
     s = base("Chassis ranking", "Edit the member the community can spare",
-             "B56 (P. taiwanensis): its functions are all covered by another member; robustness: B56 first under every random weighting.")
+             "B56 (P. taiwanensis): its functions are all covered by another member; it scores at or above B39 under every random weighting, and the fungal anchor FI20 ties with it at 90.")
     card(s, 0.6, 1.8, 6.2, 4.7)
-    s.bar_chart(0.75, 1.9, 5.9, 3.7, ["B56\nP. taiwanensis", "B39\nE. mendocina"], [90.0, 73.0], LEAF, title="Composite score, planned community",
-                number_format="0.0", vmin=0, vmax=110, point_colors=[LEAF, "7CC7A0"])
+    s.bar_chart(0.75, 1.9, 5.9, 3.7, ["FI20 (fungus)\nT. yunnanense", "B56\nP. taiwanensis", "B39\nE. mendocina"], [90.0, 90.0, 75.0], LEAF, title="Composite score, planned community",
+                number_format="0.0", vmin=0, vmax=110, point_colors=["9FB3AD", LEAF, "7CC7A0"])
     s.text(0.85, 5.65, 5.7, 0.75, "Composite = 0.40 × fit + 0.35 × dispensability + 0.25 × editing precedent. B1 (B. metallica) is not ranked.",
            size=12, color=MUTED)
     s.rect(7.1, 1.8, 5.6, 1.5, fill=DEEP, radius=0.15)
     s.text(7.35, 1.85, 2.0, 1.4, "100%", size=40, color=WHITE, bold=True, valign="m")
-    s.text(9.4, 1.85, 3.2, 1.4, "of 2,000 random weightings keep B56 (P. taiwanensis) first (seed 42)", size=14, color="BFE3D0", valign="m")
+    s.text(9.4, 1.85, 3.2, 1.4, "of 2,000 random weightings keep B56 (P. taiwanensis) at or above B39 (seed 42)", size=14, color="BFE3D0", valign="m")
     s.text(7.1, 3.5, 5.6, 1.6, [
-        [("B56, P. taiwanensis: ", {"bold": True}), "every function it provides is covered by another member; its genus has editing precedent."],
-        [("B39, E. mendocina: ", {"bold": True}), "the only strong chitinase source, so a poor editing target."]],
+        [("B56, P. taiwanensis: ", {"bold": True}), "every function it provides is covered by another member; its genus has editing precedent. The fungal anchor FI20 ties at 90."],
+        [("B39, E. mendocina: ", {"bold": True}), "the only strong chitinase source (score 75), so a poor editing target."]],
         size=14, color=INK, para_after=8)
     card(s, 7.1, 5.15, 5.6, 1.35, fill=PALE_AMBER, line="F2D9A8")
     s.text(7.3, 5.15, 5.2, 1.35, "A safety-screened alternative (E. oleovorans B55 + B. subtilis B3 with T. yunnanense FI20) covers all six functions. B3 ranks first, "
@@ -376,10 +376,10 @@ def poster():
     x = col(1)
     card(s, x, y0, cw, 4.55)
     T(x + 0.25, y0 + 0.12, cw - 0.5, 0.4, "Community layer: chassis ranking", size=21, color=LEAF, bold=True)
-    s.bar_chart(x + 0.15, y0 + 0.55, cw - 0.3, 2.6, ["B56\nP. taiwanensis", "B39\nE. mendocina"], [90.0, 73.0], LEAF, title="Composite score",
+    s.bar_chart(x + 0.15, y0 + 0.55, cw - 0.3, 2.6, ["FI20\nT. yunnanense", "B56\nP. taiwanensis", "B39\nE. mendocina"], [90.0, 90.0, 75.0], LEAF, title="Composite score",
                 number_format="0.0", vmin=0, vmax=110, point_colors=[LEAF, "7CC7A0"])
     T(x + 0.25, y0 + 3.2, cw - 0.5, 1.3, [
-        {"runs": [("B56 (P. taiwanensis) first ", {"bold": True}), "(100% of 2,000 random weightings): its functions are covered by others."], "after": 3},
+        {"runs": [("B56 (P. taiwanensis) at 90, above B39 at 75 ", {"bold": True}), "in 100% of 2,000 weightings; ties with fungus FI20."], "after": 3},
         {"runs": [("B1 (B. metallica) excluded ", {"bold": True}), "by the biosafety gate; ", ("B39 (E. mendocina) ", {"bold": True}), "is the sole chitinase source."], "after": 0}],
         size=14.5, color=INK)
     card(s, x, y0 + 4.75, cw, 2.15)
