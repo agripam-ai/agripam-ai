@@ -45,4 +45,4 @@ The frozen sequence model gives Spearman rho = 0.6325 on the released test set, 
 
 A complete nearest-sequence audit compares each test context with all 20,195 training contexts. Eighteen of 5,049 test guides have a nearest training guide with at least 18 of 20 identical positions; seven contexts have at least 34 of 37 identical positions. After excluding all test guides above 17 of 20 nearest-guide identity, 5,031 test guides remain and Spearman rho is 0.6339. Thus the headline association is not driven by the small near-identical subset, although the released split remains guide-level rather than genome-level.
 
-B26 remains a prospective case. Its WGS, native-system confirmation, PAM inference, guide predictions and physical outcomes are pending.
+B26 (*L. fusiformis*) remains a prospective case. Its WGS, native-system confirmation, PAM inference, guide predictions and physical outcomes are pending.

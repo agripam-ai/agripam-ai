@@ -1,6 +1,6 @@
 # How AgriPAM-AI / RhizoForge-Select works, step by step
 
-This guide follows the software from installation to a final ranked recommendation. Every number in the worked examples was produced by the code in this repository. Isolates are identified by strain code (for example B56, FI20).
+This guide follows the software from installation to a final ranked recommendation. Every number in the worked examples was produced by the code in this repository. Isolates are identified by strain code and species (for example B56, P. taiwanensis; FI20, T. yunnanense).
 
 ## 0. What the software does, and what it does not
 

@@ -1,4 +1,4 @@
 species	genomes	mean_systems_per_genome	genomes_with_Cas	genomes_with_RM	genomes_with_Retron
-withheld	24	4.125	0	13	2
-withheld	24	3.458	0	23	1
-withheld	24	7.667	10	16	4
+bacillus_subtilis	24	4.125	0	13	2
+bacillus_velezensis	24	3.458	0	23	1
+paenibacillus_polymyxa	24	7.667	10	16	4

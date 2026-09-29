@@ -56,7 +56,7 @@ python -m unittest discover -s tests
 
 ## Reproducibility
 
-Random procedures use the fixed seed 42. Outputs carry versions and SHA-256 checksums. Isolates are identified by strain code only.
+Random procedures use the fixed seed 42. Outputs carry versions and SHA-256 checksums. Isolates are identified by species and strain code.
 
 ## Licence and contact
 

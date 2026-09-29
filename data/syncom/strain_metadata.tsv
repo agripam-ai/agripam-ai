@@ -1,31 +1,31 @@
 strain	identification	reference_accession	reference_organism	accession_basis	pathogen_screen_score	biosafety_hold	biosafety_reason	editing_precedent_tier	editing_precedent_note
-B1	withheld	withheld	withheld	same-species reference (not the isolate)	54.2	yes	cohort table: biosafety hold; pathogen-screen score 54.2 >= 30; genus requires biosafety review	none	no recorded editing precedent; genome-based editability not yet computed
-BI1	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	yes	cohort table: biosafety hold; genus requires biosafety review	none	no recorded editing precedent; genome-based editability not yet computed
-CC25	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	yes	cohort table: biosafety hold; genus requires biosafety review	none	no recorded editing precedent; genome-based editability not yet computed
-54	withheld	withheld	withheld	same-species reference (not the isolate)	34.1	yes	pathogen-screen score 34.1 >= 30	species	species-level editing precedent in the project knowledgebase
-CC26	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	species	species-level editing precedent in the project knowledgebase
-B2	withheld	withheld	withheld	proxy: NCBI resolves this name to [taxon withheld]; identity unconfirmed	Not measured	no	no project flag	genus	genus-level precedent only
-B3	withheld	withheld	withheld	same-species reference (not the isolate)	22.2	no	no project flag	species	species-level editing precedent in the project knowledgebase
-B28	withheld	withheld	withheld	same-species reference (not the isolate)	29.5	no	no project flag	species	species-level editing precedent in the project knowledgebase
-B4	withheld	withheld	withheld	same-species reference (not the isolate)	8.3	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
-CC29	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
-B20	withheld	withheld	withheld	same-species reference (not the isolate)	10.4	no	no project flag	genus	genus-level precedent only
-B21	withheld	withheld	withheld	same-species reference (not the isolate)	10.4	no	no project flag	genus	genus-level precedent only
-B22	withheld	withheld	withheld	same-species reference (not the isolate)	0.0	no	no project flag	genus	genus-level precedent only
-B26	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
-B27	withheld	withheld	withheld	same-species reference (not the isolate)	6.8	no	no project flag	genus	genus-level precedent only
-B29	withheld	withheld	withheld	same-species reference (not the isolate)	13.6	no	no project flag	genus	genus-level precedent only
-B30	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	genus	genus-level precedent only
-B31	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
-B33	withheld	withheld	withheld	same-species reference (not the isolate)	0.0	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
-B34	withheld	withheld	withheld	same-species reference (not the isolate)	38.6	yes	pathogen-screen score 38.6 >= 30	species	species-level editing precedent in the project knowledgebase
-B35	withheld	withheld	withheld	same-species reference (not the isolate; contig-level)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
-B39	withheld	withheld	withheld	same-species reference (not the isolate)	0.0	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
-B44	withheld	withheld	withheld	same-species reference (not the isolate)	0.0	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
-B55	withheld	withheld	withheld	same-species reference (not the isolate)	0.0	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
-B56	withheld	withheld	withheld	same-species reference (not the isolate)	0.0	no	no project flag	genus	genus-level precedent only
-B57	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	yes	cohort table: biosafety hold	genus	genus-level precedent only
-B58	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	genus	genus-level precedent only
-B59	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	genus	genus-level precedent only
-CC27	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
-CC28	withheld	NA	NA	no identification; no accession can be assumed	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B1	Burkholderia metallica	GCF_001718555.1	Burkholderia metallica	same-species reference (not the isolate)	54.2	yes	cohort table: biosafety hold; pathogen-screen score 54.2 >= 30; genus requires biosafety review	none	no recorded editing precedent; genome-based editability not yet computed
+BI1	Burkholderia metallica	GCF_001718555.1	Burkholderia metallica	same-species reference (not the isolate)	Not measured	yes	cohort table: biosafety hold; genus requires biosafety review	none	no recorded editing precedent; genome-based editability not yet computed
+CC25	Burkholderia metallica	GCF_001718555.1	Burkholderia metallica	same-species reference (not the isolate)	Not measured	yes	cohort table: biosafety hold; genus requires biosafety review	none	no recorded editing precedent; genome-based editability not yet computed
+54	Bacillus velezensis	GCF_000015785.2	Bacillus velezensis FZB42	same-species reference (not the isolate)	34.1	yes	pathogen-screen score 34.1 >= 30	species	species-level editing precedent in the project knowledgebase
+CC26	Bacillus velezensis	GCF_000015785.2	Bacillus velezensis FZB42	same-species reference (not the isolate)	Not measured	no	no project flag	species	species-level editing precedent in the project knowledgebase
+B2	Pseudomonas indoloxydans	GCF_029814875.1	Ectopseudomonas oleovorans	proxy: NCBI resolves this name to E. oleovorans; identity unconfirmed	Not measured	no	no project flag	genus	genus-level precedent only
+B3	Bacillus subtilis	GCF_000009045.1	Bacillus subtilis 168	same-species reference (not the isolate)	22.2	no	no project flag	species	species-level editing precedent in the project knowledgebase
+B28	Bacillus subtilis	GCF_000009045.1	Bacillus subtilis 168	same-species reference (not the isolate)	29.5	no	no project flag	species	species-level editing precedent in the project knowledgebase
+B4	Devosia riboflavina	GCF_000743575.1	Devosia riboflavina	same-species reference (not the isolate)	8.3	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+CC29	Devosia riboflavina	GCF_000743575.1	Devosia riboflavina	same-species reference (not the isolate)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B20	Bacillus aryabhattai	GCF_002688605.1	Priestia aryabhattai	same-species reference (not the isolate)	10.4	no	no project flag	genus	genus-level precedent only
+B21	Bacillus megaterium	GCF_006094495.1	Priestia megaterium ATCC 14581	same-species reference (not the isolate)	10.4	no	no project flag	genus	genus-level precedent only
+B22	Bacillus simplex	GCF_002243645.1	Peribacillus simplex DSM 1321	same-species reference (not the isolate)	0.0	no	no project flag	genus	genus-level precedent only
+B26	Lysinibacillus fusiformis	GCF_000724775.3	Lysinibacillus fusiformis	same-species reference (not the isolate)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B27	Bacillus safensis	GCF_039619585.1	Bacillus safensis	same-species reference (not the isolate)	6.8	no	no project flag	genus	genus-level precedent only
+B29	Bacillus thuringiensis	GCF_000161615.1	Bacillus thuringiensis ATCC 10792	same-species reference (not the isolate)	13.6	no	no project flag	genus	genus-level precedent only
+B30	Bacillus altitudinis	GCF_001191605.1	Bacillus altitudinis	same-species reference (not the isolate)	Not measured	no	no project flag	genus	genus-level precedent only
+B31	Levilactobacillus brevis	GCF_900475625.1	Levilactobacillus brevis	same-species reference (not the isolate)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B33	Peribacillus frigoritolerans	GCF_022394675.1	Peribacillus frigoritolerans	same-species reference (not the isolate)	0.0	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B34	Paenibacillus polymyxa	GCF_022811565.1	Paenibacillus polymyxa ATCC 842	same-species reference (not the isolate)	38.6	yes	pathogen-screen score 38.6 >= 30	species	species-level editing precedent in the project knowledgebase
+B35	Brevibacillus fluminis	GCF_003710825.1	Brevibacillus fluminis	same-species reference (not the isolate; contig-level)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B39	Ectopseudomonas mendocina	GCF_000733715.2	Ectopseudomonas mendocina S5.2	same-species reference (not the isolate)	0.0	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B44	Agrobacterium radiobacter	GCF_057529205.1	Agrobacterium radiobacter	same-species reference (not the isolate)	0.0	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B55	Ectopseudomonas oleovorans	GCF_029814875.1	Ectopseudomonas oleovorans	same-species reference (not the isolate)	0.0	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B56	Pseudomonas taiwanensis	GCF_059341185.1	Pseudomonas taiwanensis	same-species reference (not the isolate)	0.0	no	no project flag	genus	genus-level precedent only
+B57	Pseudomonas monteilii	GCF_003671975.1	Pseudomonas monteilii	same-species reference (not the isolate)	Not measured	yes	cohort table: biosafety hold	genus	genus-level precedent only
+B58	Pseudomonas knackmussii	GCF_009911755.1	Pseudomonas knackmussii	same-species reference (not the isolate)	Not measured	no	no project flag	genus	genus-level precedent only
+B59	Pseudomonas knackmussii	GCF_009911755.1	Pseudomonas knackmussii	same-species reference (not the isolate)	Not measured	no	no project flag	genus	genus-level precedent only
+CC27	Lacticaseibacillus paracasei	GCF_000155515.2	Lacticaseibacillus paracasei 8700:2	same-species reference (not the isolate)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+CC28	no identificada	NA	NA	no identification; no accession can be assumed	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed

@@ -93,7 +93,7 @@ class CoreTests(unittest.TestCase):
     def test_workflow_normalizes_long_fasta_contig_header(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "genome.fna"
-            records = _write_fasta(">CM181814.1 [taxon withheld] strain NBUS12 chromosome\nACGTACGT\n", path)
+            records = _write_fasta(">CM181814.1 Pseudomonas taiwanensis strain NBUS12 chromosome\nACGTACGT\n", path)
             self.assertEqual(records[0][0], "CM181814.1")
             self.assertEqual(path.read_text().splitlines()[0], ">CM181814.1")
 

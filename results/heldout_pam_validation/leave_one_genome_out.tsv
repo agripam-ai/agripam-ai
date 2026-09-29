@@ -1,7 +1,7 @@
 held_out	n_train	n_heldout	predicted_PAM	heldout_matching_prediction
 GCF_006274405.1	22	1	TTC	1
 GCF_020181695.1	22	1	TTC	1
-GCF_withheld	20	3	TTC	3
+GCF_022811565.1	20	3	TTC	3
 GCF_023586645.2	22	1	TTC	1
 GCF_023586785.2	22	1	TTC	1
 GCF_025720855.1	22	1	TTC	1

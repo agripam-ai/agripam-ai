@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the competition presentation and poster (isolates by strain code only).
+"""Build the competition presentation and poster (isolates named by species and strain code).
 
 Usage: python scripts/build_deliverables.py [preview_dir]
 Requires python-pptx and Pillow. Numbers are copied from files in this repository.
@@ -52,7 +52,7 @@ def slides_presentation():
     s.text(0.8, 2.85, 7.6, 1.5, "Which microbe in a community should we edit?", size=32, color=WHITE, bold=True)
     s.text(0.8, 4.55, 7.4, 1.2, "Community-aware, chassis-aware CRISPR design for agricultural microbial communities",
            size=18, color="BFE3D0")
-    s.text(0.8, 6.75, 8, 0.35, "Isolates are shown by strain code · September 2026", size=12, color="9ED9BC")
+    s.text(0.8, 6.75, 8, 0.35, "Isolates are shown by species and strain code · September 2026", size=12, color="9ED9BC")
     tiles = [("23/23", "observations carry the inferred 5′-TTC PAM in the P. polymyxa reference panel"),
              ("60", "automated tests pass; every random step uses seed 42"),
              ("0", "wet-lab claims: every result is a computational hypothesis")]
@@ -128,18 +128,18 @@ def slides_presentation():
 
     # 5 coverage grid
     s = base("Community layer", "Functions delivered by the planned community",
-             "B1 is shown because it is in the laboratory design, but it is excluded as an editing chassis by the biosafety gate.")
+             "B1 (B. metallica) is shown because it is in the laboratory design, but it is excluded as an editing chassis by the biosafety gate.")
     cols = ["Phosphorus", "Potassium", "N-free growth", "β-glucanase", "Chitinase", "Catalase"]
-    rows = [("B1", [4, 4, 3, 0, 1, 3]), ("B39", [4, 3, 3, 1, 3, 0]), ("B56", [5, 3, None, 0, 1, 3]),
+    rows = [("B1 · B. metallica", [4, 4, 3, 0, 1, 3]), ("B39 · E. mendocina", [4, 3, 3, 1, 3, 0]), ("B56 · P. taiwanensis", [5, 3, None, 0, 1, 3]),
             ("Community best", [5, 4, 3, 1, 3, 3])]
     heat = {0: "F0F4F2", 1: "DCEFE4", 2: "BFE3D0", 3: "8FD0AE", 4: "5DBA8A", 5: "2E9E6B"}
-    x0, y0, cw, ch, lw = 0.6, 1.95, 1.2, 0.72, 1.9
+    x0, y0, cw, ch, lw = 0.5, 1.95, 1.05, 0.72, 2.6
     for j, name in enumerate(cols):
         s.text(x0 + lw + j * cw, y0, cw, 0.6, name, size=12, color=MUTED, bold=True, align="c", valign="m")
     for i, (label, vals) in enumerate(rows):
         y = y0 + 0.7 + i * (ch + 0.08)
         last = i == len(rows) - 1
-        s.text(x0, y, lw, ch, label, size=15, color=INK, bold=True, valign="m")
+        s.text(x0, y, lw, ch, label, size=13.5, color=INK, bold=True, valign="m", min_size=10)
         for j, v in enumerate(vals):
             x = x0 + lw + j * cw
             fill = "ECEFEE" if v is None else heat[v]
@@ -150,8 +150,8 @@ def slides_presentation():
     s.text(0.6, 6.0, 8.9, 0.8, "Scores 0–5 from 7-day plate readings; a function counts as delivered at 2 or more. "
            "n/t = not tested. The amber outline marks the community’s one gap.", size=12, color=MUTED)
     call = [("1 gap", "β-glucanase is below the delivery threshold.", AMBER),
-            ("B1", "Excluded as a chassis: biosafety hold in the project’s own screen.", "C0533F"),
-            ("B39", "The only strong chitinase source; editing it puts that function at risk.", LEAF)]
+            ("B1", "B. metallica: excluded as a chassis by the biosafety hold in the project’s own screen.", "C0533F"),
+            ("B39", "E. mendocina: the only strong chitinase source; editing it puts that function at risk.", LEAF)]
     for i, (big, txt, colr) in enumerate(call):
         y = 1.95 + i * 1.6
         card(s, 9.8, y, 2.95, 1.45)
@@ -161,21 +161,21 @@ def slides_presentation():
 
     # 6 ranking
     s = base("Chassis ranking", "Edit the member the community can spare",
-             "B56's functions are all covered by another member; robustness: B56 first under every random weighting.")
+             "B56 (P. taiwanensis): its functions are all covered by another member; robustness: B56 first under every random weighting.")
     card(s, 0.6, 1.8, 6.2, 4.7)
-    s.bar_chart(0.75, 1.9, 5.9, 3.7, ["B56", "B39"], [90.0, 73.0], LEAF, title="Composite score, planned community",
+    s.bar_chart(0.75, 1.9, 5.9, 3.7, ["B56\nP. taiwanensis", "B39\nE. mendocina"], [90.0, 73.0], LEAF, title="Composite score, planned community",
                 number_format="0.0", vmin=0, vmax=110, point_colors=[LEAF, "7CC7A0"])
-    s.text(0.85, 5.65, 5.7, 0.75, "Composite = 0.40 × fit + 0.35 × dispensability + 0.25 × editing precedent. B1 is not ranked.",
+    s.text(0.85, 5.65, 5.7, 0.75, "Composite = 0.40 × fit + 0.35 × dispensability + 0.25 × editing precedent. B1 (B. metallica) is not ranked.",
            size=12, color=MUTED)
     s.rect(7.1, 1.8, 5.6, 1.5, fill=DEEP, radius=0.15)
     s.text(7.35, 1.85, 2.0, 1.4, "100%", size=40, color=WHITE, bold=True, valign="m")
-    s.text(9.4, 1.85, 3.2, 1.4, "of 2,000 random weightings keep B56 first (seed 42)", size=14, color="BFE3D0", valign="m")
+    s.text(9.4, 1.85, 3.2, 1.4, "of 2,000 random weightings keep B56 (P. taiwanensis) first (seed 42)", size=14, color="BFE3D0", valign="m")
     s.text(7.1, 3.5, 5.6, 1.6, [
-        [("B56: ", {"bold": True}), "every function it provides is covered by another member; its genus has editing precedent."],
-        [("B39: ", {"bold": True}), "the only strong chitinase source, so a poor editing target."]],
+        [("B56, P. taiwanensis: ", {"bold": True}), "every function it provides is covered by another member; its genus has editing precedent."],
+        [("B39, E. mendocina: ", {"bold": True}), "the only strong chitinase source, so a poor editing target."]],
         size=14, color=INK, para_after=8)
     card(s, 7.1, 5.15, 5.6, 1.35, fill=PALE_AMBER, line="F2D9A8")
-    s.text(7.3, 5.15, 5.2, 1.35, "A safety-screened alternative (B55 + B3 with FI20) covers all six functions. B3 ranks first, "
+    s.text(7.3, 5.15, 5.2, 1.35, "A safety-screened alternative (E. oleovorans B55 + B. subtilis B3 with T. yunnanense FI20) covers all six functions. B3 ranks first, "
            "but it is the only β-glucanase source, so any edit must preserve that activity.", size=12, color=INK, valign="m")
     out.append(s)
 
@@ -307,7 +307,7 @@ def slides_presentation():
         {"runs": ["Measured editing efficiency or field performance"], "bullet": True},
         {"runs": ["That TTC is the PAM of any isolate"], "bullet": True},
         {"runs": ["That a missing analysis means absent biology"], "bullet": True},
-        {"runs": ["Biosafety clearance: B1 needs review before any use"], "bullet": True},
+        {"runs": ["Biosafety clearance: B1 (B. metallica) needs review before any use"], "bullet": True},
         {"runs": ["Isolate genomes: bank accessions are same-species references"], "bullet": True}], size=19, color=INK, para_after=14)
     out.append(s)
 
@@ -317,7 +317,7 @@ def slides_presentation():
     s.text(0.8, 0.85, 11.5, 1.0, "From design to the next build-test-learn turn", size=36, color=WHITE, bold=True)
     phases = [("Design", "Done in the software: community, chassis, editing targets and a checked construct, all ranked."),
               ("Build", "Sequence the isolates, replace the reference accessions, re-run on real genomes, then assemble the construct from BioBrick parts."),
-              ("Test", "In B56, compare the two top-ranked guides with a low-ranked guide and a no-guide control; read out by PCR and amplicon sequencing."),
+              ("Test", "In P. taiwanensis B56, compare the two top-ranked guides with a low-ranked guide and a no-guide control; read out by PCR and amplicon sequencing."),
               ("Learn", "Feed measured outcomes into the results ledger and the tracker, then retest the community for lost or gained function.")]
     for i, (head, body) in enumerate(phases):
         x = 0.8 + i * 3.05
@@ -329,7 +329,7 @@ def slides_presentation():
             s.arrow(x + 2.78, 3.95, 0.24, 0.3, "9ED9BC")
     s.text(0.8, 1.85, 11.8, 0.4, "The synthetic-biology cycle: design, build, test, learn. The software covers the first turn of design; the laboratory closes the loop.", size=13, color="9ED9BC", min_size=11)
     s.text(0.8, 6.15, 11.8, 0.7, "Ranked hypotheses today, measured evidence next.", size=22, color=WHITE, bold=True)
-    s.text(0.8, 6.85, 11.8, 0.35, "Isolates are shown by strain code. Open the software: streamlit run app/streamlit_app.py", size=12, color="9ED9BC")
+    s.text(0.8, 6.85, 11.8, 0.35, "Isolates are shown by species and strain code. Open the software: streamlit run app/streamlit_app.py", size=12, color="9ED9BC")
     s.notes = ("Close on the synthetic-biology cycle. Design is what the software has done. Build: sequence the isolates and assemble the construct. Test: two top-ranked guides against a low-ranked and a no-guide "
                "control. Learn: record everything in the tracker and feed the measured outcomes back into the ranking.")
     out.append(s)
@@ -348,7 +348,7 @@ def poster():
     s.rect(0, 0, PW, 1.85, fill=DEEP)
     T(0.6, 0.25, 16.3, 0.35, "SYNTHETIC BIOLOGY FOR AGRICULTURE · COMPETITION POSTER", size=13, color="9ED9BC", bold=True)
     T(0.6, 0.62, 16.3, 0.75, "AgriPAM-AI: which microbe in a community should we edit?", size=38, color=WHITE, bold=True)
-    T(0.6, 1.4, 16.3, 0.35, "Community-aware, chassis-aware CRISPR design · isolates shown by strain code", size=16, color="BFE3D0")
+    T(0.6, 1.4, 16.3, 0.35, "Community-aware, chassis-aware CRISPR design · isolates named by species and strain code", size=16, color="BFE3D0")
     cw, gap, x0, y0 = 5.4, 0.25, 0.5, 2.1
 
     def col(i):
@@ -376,11 +376,11 @@ def poster():
     x = col(1)
     card(s, x, y0, cw, 4.55)
     T(x + 0.25, y0 + 0.12, cw - 0.5, 0.4, "Community layer: chassis ranking", size=21, color=LEAF, bold=True)
-    s.bar_chart(x + 0.15, y0 + 0.55, cw - 0.3, 2.6, ["B56", "B39"], [90.0, 73.0], LEAF, title="Composite score",
+    s.bar_chart(x + 0.15, y0 + 0.55, cw - 0.3, 2.6, ["B56\nP. taiwanensis", "B39\nE. mendocina"], [90.0, 73.0], LEAF, title="Composite score",
                 number_format="0.0", vmin=0, vmax=110, point_colors=[LEAF, "7CC7A0"])
     T(x + 0.25, y0 + 3.2, cw - 0.5, 1.3, [
-        {"runs": [("B56 first ", {"bold": True}), "(100% of 2,000 random weightings): its functions are covered by others."], "after": 3},
-        {"runs": [("B1 excluded ", {"bold": True}), "by the biosafety gate; ", ("B39 ", {"bold": True}), "is the sole chitinase source."], "after": 0}],
+        {"runs": [("B56 (P. taiwanensis) first ", {"bold": True}), "(100% of 2,000 random weightings): its functions are covered by others."], "after": 3},
+        {"runs": [("B1 (B. metallica) excluded ", {"bold": True}), "by the biosafety gate; ", ("B39 (E. mendocina) ", {"bold": True}), "is the sole chitinase source."], "after": 0}],
         size=14.5, color=INK)
     card(s, x, y0 + 4.75, cw, 2.15)
     T(x + 0.25, y0 + 4.85, cw - 0.5, 0.4, "Genome layer: worked example", size=21, color=LEAF, bold=True)
@@ -408,10 +408,10 @@ def poster():
     card(s, x, y0 + 6.5, cw, 1.6, fill=PALE_AMBER, line="F2D9A8")
     T(x + 0.25, y0 + 6.58, cw - 0.5, 0.4, "Limits", size=19, color="B5741A", bold=True)
     T(x + 0.25, y0 + 6.98, cw - 0.5, 1.1, "Computational hypotheses, not measured efficiency. TTC is this panel's result; every isolate is analysed on its own spacers (64 motifs tested). "
-           "B1 needs biosafety review. Bank genomes are same-species references.", size=13.5, color=INK)
+           "B1 (B. metallica) needs biosafety review. Bank genomes are same-species references.", size=13.5, color=INK)
     card(s, x, y0 + 8.3, cw, 1.2)
     T(x + 0.25, y0 + 8.35, cw - 0.5, 1.1, [[("Next: ", {"bold": True, "color": LEAF}),
-           "sequence the isolates; test two top guides against a low-ranked and a no-guide control in B56; feed results back."]],
+           "sequence the isolates; test two top guides against a low-ranked and a no-guide control in P. taiwanensis B56; feed results back."]],
            size=14.5, color=INK, valign="m")
     s.rect(0, PH - 0.55, PW, 0.55, fill=DEEP)
     T(0.6, PH - 0.55, 16.3, 0.55, "Software: streamlit run app/streamlit_app.py · 60 automated tests · fixed seed 42 · every module reports when it could not run",

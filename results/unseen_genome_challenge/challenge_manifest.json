@@ -1,8 +1,8 @@
 {
   "challenge_id": "AGRIPAM_UNSEEN_GENOME_001",
   "frozen_at_utc": "2026-09-17T15:01:59.674944+00:00",
-  "accession": "GCF_withheld",
-  "organism": "[taxon withheld]",
+  "accession": "GCF_059341185.1",
+  "organism": "Pseudomonas taiwanensis",
   "input_fasta_sha256": "3ece68476d53e5a6edfb0699aadb9a1ee181c78a38e99ab7400e126982d008ca",
   "candidate_table_sha256": "a4e6c73a040f1ef86a540d7306a705721829197253cb97cf47323000a0738e26",
   "outcomes_available_to_analysis": false,

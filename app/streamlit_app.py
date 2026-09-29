@@ -2211,7 +2211,7 @@ with tabs[2], st.expander("Native-bank evidence and candidate selection", expand
                 st.success(
                     f"Current discovery lead (updated from analyzed evidence): {len(b39_positive)} of "
                     f"{int((priority_view['isolate'] == 'B39').sum())} screened "
-                    f"*[taxon withheld]* references contain a complete computationally detected native locus "
+                    f"*E. mendocina* references contain a complete computationally detected native locus "
                     f"({subtype_text}). This prioritizes sequencing B39; it is not evidence that B39 itself carries the locus."
                 )
                 st.warning(
@@ -2221,12 +2221,12 @@ with tabs[2], st.expander("Native-bank evidence and candidate selection", expand
                 )
         st.markdown("#### Assembly-level evidence")
         st.dataframe(priority_view[priority_columns], hide_index=True, width="stretch")
-        st.info("FI20 has no complete/chromosome *[taxon withheld]* assembly in NCBI. Analyze the sequenced FI20 genome for fungal RNAi and repair machinery plus compatibility with an introduced editor.")
+        st.info("FI20 has no complete/chromosome *T. yunnanense* assembly in NCBI. Analyze the sequenced FI20 genome for fungal RNAi and repair machinery plus compatibility with an introduced editor.")
         st.download_button("Download priority reference results", priority_view.to_csv(sep="\t", index=False).encode("utf-8"),
                            "priority_chassis_crispr_cas_results.tsv", mime="text/tab-separated-values")
     st.subheader("FI20 fungal editing-readiness reference")
     st.info(
-        "**Fungal native-machinery legend:** for FI20, native editing readiness does not mean a bacterial CRISPR-Cas locus. It refers to endogenous RNAi machinery (such as Argonaute, Dicer and RdRP), homologous-recombination and non-homologous-end-joining repair capacity, and other features that may support or constrain an introduced editor. Any editor, target requirement and edit outcome must still be selected and validated in the FI20 isolate.",
+        "**Fungal native-machinery legend:** for FI20 (*T. yunnanense*), native editing readiness does not mean a bacterial CRISPR-Cas locus. It refers to endogenous RNAi machinery (such as Argonaute, Dicer and RdRP), homologous-recombination and non-homologous-end-joining repair capacity, and other features that may support or constrain an introduced editor. Any editor, target requirement and edit outcome must still be selected and validated in the FI20 isolate.",
         icon=":material/biotech:",
     )
     if fungal_reference_screen.empty:
@@ -3188,7 +3188,7 @@ with tabs[5]:
 
     with st.expander("B26 prospective case", expanded=False):
         st.warning(
-            "B26 WGS is pending. No B26 genome-specific PAM, guide, editing outcome "
+            "B26 (*L. fusiformis*) WGS is pending. No B26 genome-specific PAM, guide, editing outcome "
             "or wet-lab validation is claimed. When WGS arrives, the design will be locked before experimental outcomes are reviewed."
         )
 

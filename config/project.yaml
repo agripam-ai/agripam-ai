@@ -9,7 +9,7 @@ primary_taxa:
   - Bacillus subtilis
 
 fallback_taxa:
-  - [taxon withheld]
+  - Priestia megaterium
 
 assembly_selection:
   assembly_source: RefSeq

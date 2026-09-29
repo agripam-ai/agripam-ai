@@ -205,7 +205,7 @@ def build() -> str:
     cur = f["cur"]
     add(f"For each community the software ranks members by compatibility with the others, dispensability (the share of the community's functions that survive if the member's own activity is lost) and editing precedent. "
         f"In scenario A the top-ranked chassis was {a_top.strain} ({why(a_top)}); in scenario C it was {c_top.strain} ({why(c_top)}). "
-        f"Fungi are ranked with the same rules. Their editing precedent and biosafety were curated from the literature: genus-level precedent exists for FI1, FI2 and FI20 (CRISPR/Cas9 systems published for other species of [taxon withheld], [taxon withheld] and [taxon withheld]), none for the unidentified FI62; "
+        f"Fungi are ranked with the same rules. Their editing precedent and biosafety were curated from the literature: genus-level precedent exists for FI1, FI2 and FI20 (CRISPR/Cas9 systems published for other species of Penicillium, Talaromyces and Trichoderma), none for the unidentified FI62; "
         f"FI2 and FI62 are held (clinical reports for the species; unidentified isolate), and FI1 and FI20 carry a caution because their genera contain mycotoxigenic or opportunistic species. This curation is decision support and needs biosafety-committee confirmation. "
         f"Under 2,000 random weightings of the three criteria, the outcome was: scenario A, {f['summary'].loc['A', 'robustness']}; scenario C, {f['summary'].loc['C', 'robustness']}. "
         f"Scenario C contains B1, which carries a biosafety flag: the coverage it provides describes the planned community, not a recommendation to use it.\n")
@@ -280,7 +280,7 @@ def build() -> str:
     add("Screenshots of each window at full resolution should be added by the team as Supplementary Figures S1 to S7 [TO CONFIRM]. [EXPERIMENT: Figure 6, wet-lab results.]\n")
 
     add("# Declarations\n")
-    add("**Ethics and biosafety.** [TO CONFIRM: institutional biosafety review for the [taxon withheld] cepacia complex strains and any regulatory requirements.] **Author contributions (CRediT).** [TO CONFIRM.] **Competing interests.** [TO CONFIRM.] **Funding.** [TO CONFIRM.]\n")
+    add("**Ethics and biosafety.** [TO CONFIRM: institutional biosafety review for the Burkholderia cepacia complex strains and any regulatory requirements.] **Author contributions (CRediT).** [TO CONFIRM.] **Competing interests.** [TO CONFIRM.] **Funding.** [TO CONFIRM.]\n")
 
     add("# References\n")
     for i, key in enumerate(_order, 1):

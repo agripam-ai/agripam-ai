@@ -4,11 +4,11 @@
 
 **RhizoForge-Select** is the competition-facing product. **AgriPAM-AI** is its current evidence engine. The engine reads a FASTA or NCBI accession, summarizes the chassis, identifies candidate Type I-C 5′-TTC targets, scores sequence quality and exports auditable designs.
 
-The next application layer can use the same ranking engine to design a regulatory edit in a validated beneficial strain such as B34, with a defined *[taxon withheld]* biocontrol assay as the endpoint.
+The next application layer can use the same ranking engine to design a regulatory edit in a validated beneficial strain such as B34, with a defined *F. oxysporum* biocontrol assay as the endpoint.
 
 ## Core hypothesis
 
-An AI model that accounts for chassis defense systems, PAM compatibility and sequence context can prioritize regulatory edits that improve a beneficial strain's activity against *[taxon withheld]* while preserving nutrient-transformation functions and avoiding unnecessary effects on beneficial fungi.
+An AI model that accounts for chassis defense systems, PAM compatibility and sequence context can prioritize regulatory edits that improve a beneficial strain's activity against *F. oxysporum* while preserving nutrient-transformation functions and avoiding unnecessary effects on beneficial fungi.
 
 This is a testable hypothesis, not a result established by the current genome survey.
 
@@ -23,7 +23,7 @@ This is a testable hypothesis, not a result established by the current genome su
 
 - B34 genome sequence and annotation.
 - Identification of a regulatory target linked to antifungal activity.
-- Demonstration that the edit changes antifungal activity against *[taxon withheld]*.
+- Demonstration that the edit changes antifungal activity against *F. oxysporum*.
 - Measurements showing nutrient-transformation functions remain intact.
 - Non-target fungal compatibility testing.
 
@@ -37,4 +37,4 @@ Present RhizoForge-Select as a **closed-loop design and validation system**:
 4. Test the highest-ranked design with a measurable reporter or biocontrol assay.
 5. Feed the measured result back into the model.
 
-Do not present the current *P. polymyxa* PAM discovery as proof that an isolate has the same PAM or that a proposed edit improves biocontrol.
+Do not present the current *P. polymyxa* PAM discovery as proof that B34 has the same PAM or that a proposed edit improves biocontrol.

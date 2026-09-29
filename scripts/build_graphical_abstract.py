@@ -163,13 +163,13 @@ def build(banner=False):
     card(s, ex[2], ey, ew, 2.55, fill=PALE_AMBER, line="F2D9A8")
     T(ex[2] + 0.25, ey + 0.1, ew - 0.5, 0.4, "Limits", size=19, color="B5741A", bold=True)
     T(ex[2] + 0.25, ey + 0.55, ew - 0.5, 1.95, "Computational hypotheses, not measured editing efficiency. Every isolate is analysed on its own spacers. "
-      "B1 needs biosafety review. Bank genomes are same-species references. No wet-lab result yet.", size=14, color=INK)
+      "B1 (B. metallica) needs biosafety review. Bank genomes are same-species references. No wet-lab result yet.", size=14, color=INK)
     card(s, ex[2], ey + 2.75, ew, 1.8)
     T(ex[2] + 0.25, ey + 2.8, ew - 0.5, 1.7, [[("Next: ", {"bold": True, "color": LEAF}),
-      "sequence the isolates; in B56 test two top guides against a low-ranked and a no-guide control; feed results back."]],
+      "sequence the isolates; in P. taiwanensis B56 test two top guides against a low-ranked and a no-guide control; feed results back."]],
       size=14.5, color=INK, valign="m")
     s.rect(0, PHH - 0.5, PW, 0.5, fill=DEEP)
-    T(0.6, PHH - 0.5, PW - 1.2, 0.5, "Open source · streamlit run app/streamlit_app.py · 60 automated tests · fixed seed 42 · a 5 Mb genome scanned in 4.8 s · isolates shown by strain code",
+    T(0.6, PHH - 0.5, PW - 1.2, 0.5, "Open source · streamlit run app/streamlit_app.py · 60 automated tests · fixed seed 42 · a 5 Mb genome scanned in 4.8 s · isolates named by species and strain code",
       size=13, color="BFE3D0", valign="m")
     return s
 
