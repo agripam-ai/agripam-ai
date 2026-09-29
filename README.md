@@ -9,7 +9,11 @@ Open software that takes a tested microbial bank to a designed community, an edi
 
 All outputs are computational hypotheses, not measured editing efficiency.
 
-## For the judge: run it in three minutes
+## For the judge: try it online
+
+Live application: **https://agripam-ai.streamlit.app** (no installation or sign-in needed; if the page says the app is asleep, press the wake-up button and wait about a minute).
+
+## For the judge: run it locally in three minutes
 
 The application has seven windows. Start with **SynCom candidate bank → Analyze your own bank**, where you can download the filled example workbook, upload it and press *Run SynCom analysis*.
 

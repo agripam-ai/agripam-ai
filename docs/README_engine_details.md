@@ -1,4 +1,4 @@
-# RhizoForge-Select
+# AgriPAM-AI: engine details
 
 AI-guided, chassis-aware genome-editing design for agricultural microbial synthetic communities.
 

@@ -81,7 +81,7 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-st.info("AgriPAM-AI is the comparative defense-genomics and PAM-ranking engine inside RhizoForge-Select.")
+st.info("AgriPAM-AI links the choice of community, the member to edit, the editing target and the construct in one auditable workflow.")
 
 with st.sidebar:
     text_size = st.radio("Text size", ["Normal", "Large", "Extra large"], index=1, horizontal=True, key="text_size",
@@ -226,7 +226,7 @@ with tabs[0]:
     st.header("From target organism to validated edit")
     st.info(
         "Begin here. This roadmap explains everything required for a defensible microbial editing project and "
-        "shows which decisions belong to RhizoForge-Select and which require laboratory confirmation.",
+        "shows which decisions belong to AgriPAM-AI and which require laboratory confirmation.",
         icon=":material/info:",
     )
     st.subheader("Interactive CRISPR learning model")
@@ -497,7 +497,7 @@ with tabs[0]:
     for title, requirement, contribution, status in roadmap_steps:
         with st.expander(f"{title} — {status}", expanded=title.startswith("1.")):
             st.markdown(f"**What is required:** {requirement}")
-            st.markdown(f"**RhizoForge-Select contribution:** {contribution}")
+            st.markdown(f"**AgriPAM-AI contribution:** {contribution}")
             st.markdown(f"**Current status:** {status}")
     completed_foundations = int(objective_ready) + int(genome_ready)
     st.progress(completed_foundations / 2, text=f"Computational preparation foundations completed: {completed_foundations}/2")
@@ -506,7 +506,7 @@ with tabs[0]:
         "repair → sequence confirmation → phenotype and safety validation"
     )
     st.caption(
-        "RhizoForge-Select supports evidence collection and design prioritization. Delivery, successful editing, "
+        "AgriPAM-AI supports evidence collection and design prioritization. Delivery, successful editing, "
         "phenotype and safety require an approved strain-specific procedure and physical validation."
     )
 
@@ -557,7 +557,7 @@ with tabs[1]:
             "Important: an NCBI assembly accession downloads only the uploaded organism’s "
             "assembled chromosomes/contigs. NCBI does not automatically supply the separate "
             "phage/plasmid/mobile-element sequences used for strain-specific PAM discovery. "
-            "RhizoForge-Select reads the organism and strain from NCBI metadata, then uses an "
+            "AgriPAM-AI reads the organism and strain from NCBI metadata, then uses an "
             "installed mobile collection only when its host scope matches. Otherwise it requests "
             "a matching collection and reports PAM discovery as not run.",
             icon=":material/database:",
@@ -924,7 +924,7 @@ with tabs[1]:
         # Editing Strategy Overview
         st.markdown("## Editing Strategy Overview")
         st.caption(
-            "RhizoForge-Select evaluates three distinct evidence layers: "
+            "AgriPAM-AI evaluates three distinct evidence layers: "
             "genome-derived editing machinery, strain-specific targeting evidence, "
             "and introduced-editor targetability. None of these alone demonstrates "
             "experimental editing efficiency."
@@ -1070,7 +1070,7 @@ with tabs[1]:
         else:
             st.info(
                 "No strain-specific PAM currently passes the evidence threshold. "
-                "RhizoForge-Select therefore does not substitute TTC or another "
+                "AgriPAM-AI therefore does not substitute TTC or another "
                 "reference PAM as strain-specific evidence."
             )
 
@@ -1566,7 +1566,7 @@ with tabs[1]:
             "Functional hits",
             f"{int(summary_full['functional_gene_hits']):,}" if product_annotations else "Unavailable",
             help=("Genes whose names or predicted products matched the agricultural-function categories used by "
-                  "RhizoForge-Select, including biocontrol, nutrient transformation, secretion, siderophore and "
+                  "AgriPAM-AI, including biocontrol, nutrient transformation, secretion, siderophore and "
                   "colonization functions. These are annotation-supported candidates, not experimentally confirmed activities."),
         )
         m4.metric(
@@ -1915,7 +1915,7 @@ with tabs[3]:
             st.info(f"Record-specific validation recommendation: {selected_protocol['recommended_validation']}")
             st.link_button("Open the supporting source", str(selected_protocol["source_url"]), icon=":material/open_in_new:")
             protocol_markdown = "\n".join([
-                f"# RhizoForge-Select editing plan: {selected_protocol['organism']} {selected_protocol['strain']}",
+                f"# AgriPAM-AI editing plan: {selected_protocol['organism']} {selected_protocol['strain']}",
                 "",
                 f"- Proposed route: {selected_protocol['editing_route']}",
                 f"- PAM or target requirement: {selected_protocol['pam_or_target_requirement']}",
@@ -2775,7 +2775,7 @@ with tabs[2], st.expander("Quick reference-TTC demonstration"):
 
             result_report = {
                 "tool": "AgriPAM-AI",
-                "product": "RhizoForge-Select",
+                "product": "AgriPAM-AI",
                 "analysis": "Type I-C 5'-TTC quick genome scan",
                 "source": analysis["source"],
                 "protospacer_length": analysis["protospacer_length"],
@@ -2784,7 +2784,7 @@ with tabs[2], st.expander("Quick reference-TTC demonstration"):
                 "candidates": genome_candidates,
             }
             manifest = {
-                "product": "RhizoForge-Select",
+                "product": "AgriPAM-AI",
                 "engine": "AgriPAM-AI",
                 "run_timestamp_utc": datetime.now(timezone.utc).isoformat(),
                 "source": analysis["source"],
