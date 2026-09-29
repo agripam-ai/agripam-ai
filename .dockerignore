@@ -1,0 +1,10 @@
+.git
+.envs
+.tools
+.app_vendor
+__pycache__
+.pytest_cache
+work
+deliverables/final/*.zip
+data/ncbi_packages
+results/public_native_system_survey/cctyper

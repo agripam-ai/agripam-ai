@@ -1,0 +1,13 @@
+Panel	Species	Successes	Total	Percent	Wilson_95CI_lower	Wilson_95CI_upper	Curation_note
+Raw array-positive genomes	withheld	10	24	41.666667	24.467603	61.165334	Accepted CRISPR-containing genomes
+Raw array-positive genomes	withheld	0	24	0.000000	0.000000	13.797620	No arrays detected
+Raw array-positive genomes	withheld	1	24	4.166667	0.739346	20.241806	One untrusted tandem-repeat prediction
+Validated CRISPR-Cas systems	withheld	10	24	41.666667	24.467603	61.165334	CRISPR and Cas positive
+Validated CRISPR-Cas systems	withheld	0	24	0.000000	0.000000	13.797620	No validated systems
+Validated CRISPR-Cas systems	withheld	0	24	0.000000	0.000000	13.797620	Repeat-rich BclB candidate excluded
+Type I-C systems	withheld	7	24	29.166667	14.914648	49.167694	Type I-C positive
+Type I-C systems	withheld	0	24	0.000000	0.000000	13.797620	Not detected
+Type I-C systems	withheld	0	24	0.000000	0.000000	13.797620	Not detected
+Type III-B systems	withheld	5	24	20.833333	9.244825	40.470453	Type III-B positive
+Type III-B systems	withheld	0	24	0.000000	0.000000	13.797620	Not detected
+Type III-B systems	withheld	0	24	0.000000	0.000000	13.797620	Not detected

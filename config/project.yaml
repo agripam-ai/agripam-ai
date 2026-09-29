@@ -1,0 +1,57 @@
+project_name: AgriPAM-AI
+analysis_date_started: 2026-09-09
+# All scripts use this seed (SEED = 42 in each script). An earlier placeholder, 20260909, was never read by code.
+random_seed: 42
+
+primary_taxa:
+  - Paenibacillus polymyxa
+  - Bacillus velezensis
+  - Bacillus subtilis
+
+fallback_taxa:
+  - [taxon withheld]
+
+assembly_selection:
+  assembly_source: RefSeq
+  annotated_only: true
+  exclude_atypical: true
+  exclude_multi_isolate: true
+  exclude_mags: true
+  preferred_levels:
+    - complete
+    - chromosome
+
+quality_primary:
+  minimum_completeness_percent: 98
+  maximum_contamination_percent: 2
+
+quality_secondary:
+  minimum_completeness_percent: 95
+  maximum_contamination_percent: 5
+  maximum_contigs: 100
+
+crispr_primary:
+  minimum_spacers_per_array: 3
+  require_complete_cas_operon: true
+  reject_contig_edge_loci: true
+
+protospacer_high_confidence:
+  minimum_query_coverage_percent: 90
+  minimum_identity_percent: 90
+  maximum_mismatches: 2
+  maximum_gaps: 0
+
+protospacer_moderate_confidence:
+  minimum_query_coverage_percent: 80
+  minimum_identity_percent: 85
+  maximum_mismatches: 3
+
+pam_evidence:
+  preliminary_minimum_independent_matches: 10
+  moderate_minimum_independent_matches: 20
+  flank_length_nt: 10
+
+modeling:
+  random_seed: 42
+  split_strategy: protein_cluster_or_lineage
+  prohibit_random_split_of_close_homologs: true

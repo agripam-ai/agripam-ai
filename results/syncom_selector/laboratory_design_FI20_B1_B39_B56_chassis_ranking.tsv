@@ -1,0 +1,4 @@
+strain	safety_eligible	safety_note	fit_score	fit_evidence_n	fit_notes	dispensability_score	functions_lost_if_removed	editability_precedent_score	editability_note	composite	rank
+B56	True	no project flag	100.0	1		100.0		60.0	genus-level precedent only	90.0	1
+B39	True	no project flag	100.0	1		80.0	chitinase	20.0	no recorded editing precedent; genome-based editability not yet computed	73.0	2
+B1	False	cohort table: biosafety hold; pathogen-screen score 54.2 >= 30; genus requires biosafety review	100.0	1		100.0		20.0	no recorded editing precedent; genome-based editability not yet computed	0.0	

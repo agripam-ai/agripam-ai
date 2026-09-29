@@ -1,0 +1,31 @@
+rank	strain	identification	pathogen_score	beneficial_compatibility	native_discovery_priority	study_role	rationale	required_next_step
+1	B35	withheld	Not measured	100.0	High	Primary discovery	Underexplored agricultural lineage; unusual CRISPR systems occur in [taxon withheld]	Confirm identity by whole-genome ANI and resolve complete Cas loci
+2	B31	withheld	Not measured	58.8	Medium	Exploratory discovery	Potential native CRISPR diversity but moderate compatibility	Sequence genome and screen complete loci plus plasmids
+3	B26	withheld	Not measured	100.0	Very high	Lead discovery	Reference genomes contain a complete-looking Type I-B1 locus; endogenous editing not established	Sequence first; infer strain-specific PAM and test system activity
+4	B44	withheld	0.0	93.8	Medium	Comparative chassis	Strong plasmid biology but substantial existing genetic-tool precedent	Confirm taxonomy and distinguish environmental from pathogenic lineages
+5	B21	withheld	10.4	100.0	Low	Editing benchmark	Highly tractable but introduced CRISPR editing is already established	Use as delivery and introduced-editor control
+6	B29	withheld	13.6	100.0	Medium	Conditional discovery	Native defence diversity is plausible	Resolve toxin plasmids and complete biosafety review first
+7	B3	withheld	22.2	50.0	Low	Editing benchmark	Extensively characterized model chassis	Use for pipeline sensitivity and delivery controls
+8	B34	withheld	38.6	0.0	Low	Known-system benchmark	Native Type I-C precedent provides a positive biological benchmark	Determine B34 subtype independently and compare with published strains
+9	CC27	withheld	Not measured	75.0	Medium	Exploratory discovery	Lactic-acid bacteria often contain strain-variable native CRISPR systems	Confirm identity and compare spacers with phage collections
+10	CC29	withheld	Not measured	100.0	High	Primary discovery	Very underexplored genome-engineering chassis with high compatibility	Generate a complete genome and search all defence-system classes
+11	B28	withheld	29.5	25.0	Low	Within-species comparator	Useful paired comparison with B3 but low novelty	Compare B3 and B28 defence and transformation barriers
+12	B20	withheld	10.4	100.0	High	Secondary discovery	Agricultural relevance and high compatibility with limited native-editing precedent	Sequence and compare with Bacillus reference mobile elements
+13	CC26	withheld	Not measured	0.0	Medium	Within-species comparator	Species frequently contains CRISPR arrays but the current panel was inconclusive	Compare with isolate 54 and CRISPR-positive reference strains
+14	B30	withheld	Not measured	33.8	Medium	Exploratory discovery	Agricultural Bacillus with less editing precedent	Confirm phenotype and screen native systems
+15	54	withheld	34.1	0.0	Medium	Within-species comparator	Useful paired strain-level test with CC26	Resolve genome and compare Cas-locus presence or absence
+16	B39	withheld	0.0	93.8	High	Priority discovery	Agricultural isolate with strong beneficial compatibility; complete public genomes permit comparative native-system screening	Confirm submitted identity and strain-specific loci by whole-genome sequencing
+17	B27	withheld	6.8	Not measured	Medium	Exploratory discovery	Environmental Bacillus with possible strain-variable defences	Measure beneficial compatibility before prioritizing
+18	B22	withheld	0.0	100.0	High	Secondary discovery	High compatibility and limited endogenous editing precedent	Sequence and screen complete CRISPR and alternative systems
+19	B33	withheld	0.0	58.3	Medium	Exploratory discovery	Underexplored environmental chassis	Confirm agricultural phenotype and genome identity
+20	B4	withheld	8.3	75.0	High	Within-species discovery	Paired comparison with CC29 can reveal strain-specific acquisition or loss	Sequence together with CC29
+21	B1	withheld	54.2	100.0	Hold	Biosafety review	High pathogen-screen signal despite compatibility	Do not prioritize before definitive taxonomy and institutional biosafety review
+22	B57	withheld	Not measured	93.8	Hold	Biosafety review	Potential opportunistic lineage and missing pathogen measurement	Resolve species and risk status first
+23	B59	withheld	Not measured	100.0	High	Primary discovery	High compatibility, documented mobile-element biology and limited native-tool development	Sequence with B58 and curate plasmid/phage references
+24	B58	withheld	Not measured	93.8	High	Within-species discovery	Paired comparison with B59 can expose strain-specific systems	Sequence together with B59
+25	BI1	withheld	Not measured	100.0	Hold	Biosafety review	Taxonomic and pathogenic potential unresolved	Definitive identification and risk review required
+26	B2	withheld	Not measured	93.8	Medium	Conditional discovery	Potentially novel but identity and clinical relatedness require review	Whole-genome taxonomy and biosafety assessment
+27	CC25	withheld	Not measured	Not measured	Hold	Biosafety review	Both biological measurements and risk status are incomplete	Complete phenotyping, taxonomy and risk review
+28	B56	withheld	0.0	93.8	Medium	Conditional discovery	Good compatibility but potential opportunistic associations require resolution	Confirm taxonomy and evaluate defence plus delivery barriers
+29	CC28	withheld	Not measured	100.0	Unresolved	Taxonomy first	Potentially interesting but no organism-level inference is defensible	Obtain genome and establish taxonomy before prioritization
+30	B55	withheld	0.0	68.8	Medium	Exploratory discovery	Environmental chassis with moderate compatibility and limited native-tool precedent	Sequence and compare with Pseudomonadaceae mobile elements

@@ -1,0 +1,3 @@
+comparison	genomes	genome_pairs	spearman_rho	permutation_p_one_sided	expected_direction	permutations	random_seed
+ANI_similarity_vs_spacer_Jaccard	10	45	0.5238581149639637	0.0131986801319868	positive	10000	42
+tree_distance_vs_spacer_Jaccard	10	45	-0.4252162716748106	0.0382961703829617	negative	10000	42

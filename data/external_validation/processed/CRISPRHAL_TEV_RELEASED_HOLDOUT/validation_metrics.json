@@ -1,0 +1,207 @@
+{
+  "benchmark_role": "predefined released holdout; same study and chassis, not external-study or held-out-genome validation",
+  "separation": "models fitted on released training table only; testing outcomes stored separately until predictions were frozen",
+  "n_training": 20195,
+  "n_testing": 5049,
+  "exact_sequence_overlap_train_test": 0,
+  "ridge_alpha_selected_by_training_only_5fold_cv": 0.1778279410038923,
+  "primary": {
+    "n_guides": 5049,
+    "n_genomes": 1,
+    "spearman_rho": 0.6325131731966895,
+    "continuous_top_k": [
+      {
+        "top_fraction": 0.01,
+        "k": 51,
+        "mean_outcome": 2.5672579366823514,
+        "median_outcome": 3.61538766774986,
+        "mean_lift_over_all": 2.8581816709869434
+      },
+      {
+        "top_fraction": 0.05,
+        "k": 253,
+        "mean_outcome": 2.517587494775889,
+        "median_outcome": 3.22478787390806,
+        "mean_lift_over_all": 2.808511229080481
+      },
+      {
+        "top_fraction": 0.1,
+        "k": 505,
+        "mean_outcome": 2.2569362846101826,
+        "median_outcome": 2.9842870388577,
+        "mean_lift_over_all": 2.5478600189147746
+      },
+      {
+        "top_fraction": 0.2,
+        "k": 1010,
+        "mean_outcome": 1.9358015016825232,
+        "median_outcome": 2.64843746594872,
+        "mean_lift_over_all": 2.2267252359871152
+      }
+    ],
+    "classification_note": "ROC/PR, enrichment and calibration require a pre-specified biological threshold."
+  },
+  "gc_baseline": {
+    "n_guides": 5049,
+    "n_genomes": 1,
+    "spearman_rho": 0.35340552377235623,
+    "continuous_top_k": [
+      {
+        "top_fraction": 0.01,
+        "k": 51,
+        "mean_outcome": -0.12531186810619924,
+        "median_outcome": 0.573227807631794,
+        "mean_lift_over_all": 0.165611866198393
+      },
+      {
+        "top_fraction": 0.05,
+        "k": 253,
+        "mean_outcome": 0.4341547487944569,
+        "median_outcome": 1.21741610086858,
+        "mean_lift_over_all": 0.7250784830990491
+      },
+      {
+        "top_fraction": 0.1,
+        "k": 505,
+        "mean_outcome": 0.7138328107682848,
+        "median_outcome": 1.39423160494332,
+        "mean_lift_over_all": 1.004756545072877
+      },
+      {
+        "top_fraction": 0.2,
+        "k": 1010,
+        "mean_outcome": 0.7392086354381617,
+        "median_outcome": 1.291829400215665,
+        "mean_lift_over_all": 1.030132369742754
+      }
+    ],
+    "classification_note": "ROC/PR, enrichment and calibration require a pre-specified biological threshold."
+  },
+  "sequence_similarity_audit": {
+    "method": "maximum position-wise identity to any released training sequence",
+    "context_identity_37_percentiles": {
+      "0": 20.0,
+      "0.25": 22.0,
+      "0.5": 23.0,
+      "0.75": 24.0,
+      "0.95": 25.0,
+      "1": 36.0
+    },
+    "guide_identity_20_percentiles": {
+      "0": 12.0,
+      "0.25": 13.0,
+      "0.5": 14.0,
+      "0.75": 15.0,
+      "0.95": 16.0,
+      "1": 19.0
+    },
+    "test_guides_with_context_identity_at_least_34_of_37": 7,
+    "test_guides_with_guide_identity_at_least_18_of_20": 18,
+    "distant_subset_rule": "nearest training guide identity <=17/20",
+    "distant_subset_n": 5031,
+    "distant_subset_metrics": {
+      "n_guides": 5031,
+      "n_genomes": 1,
+      "spearman_rho": 0.633941350300786,
+      "continuous_top_k": [
+        {
+          "top_fraction": 0.01,
+          "k": 51,
+          "mean_outcome": 2.5672579366823514,
+          "median_outcome": 3.61538766774986,
+          "mean_lift_over_all": 2.8578807009671277
+        },
+        {
+          "top_fraction": 0.05,
+          "k": 252,
+          "mean_outcome": 2.5157797513070577,
+          "median_outcome": 3.24302374366933,
+          "mean_lift_over_all": 2.8064025155918344
+        },
+        {
+          "top_fraction": 0.1,
+          "k": 504,
+          "mean_outcome": 2.254007181608465,
+          "median_outcome": 2.982919278776045,
+          "mean_lift_over_all": 2.5446299458932415
+        },
+        {
+          "top_fraction": 0.2,
+          "k": 1007,
+          "mean_outcome": 1.9372402535391529,
+          "median_outcome": 2.65653156934027,
+          "mean_lift_over_all": 2.227863017823929
+        }
+      ],
+      "classification_note": "ROC/PR, enrichment and calibration require a pre-specified biological threshold."
+    }
+  },
+  "delta_spearman_over_gc_baseline": 0.2791076494243333,
+  "rmse": 2.084123859127877,
+  "mae": 1.6423444087567285,
+  "uncertainty_and_null": {
+    "unit": "guide",
+    "resamples": 2000,
+    "observed_spearman": 0.6325131731966895,
+    "bootstrap_ci95_low": 0.6134372128364891,
+    "bootstrap_ci95_high": 0.6501606401118553,
+    "permutation_null_mean": 0.00024051616054679027,
+    "permutation_two_sided_p": 0.0004997501249375312
+  },
+  "top_k_permutation": {
+    "status": "complete",
+    "permutation_unit": "all rows",
+    "resamples": 2000,
+    "rows": [
+      {
+        "top_fraction": 0.01,
+        "k": 51,
+        "observed_mean_lift": 2.8581816709869434,
+        "null_mean_lift": -0.004749526321284424,
+        "empirical_one_sided_p": 0.0004997501249375312
+      },
+      {
+        "top_fraction": 0.05,
+        "k": 253,
+        "observed_mean_lift": 2.808511229080481,
+        "null_mean_lift": -0.005143385820703135,
+        "empirical_one_sided_p": 0.0004997501249375312
+      },
+      {
+        "top_fraction": 0.1,
+        "k": 505,
+        "observed_mean_lift": 2.5478600189147746,
+        "null_mean_lift": -0.0027273390681988026,
+        "empirical_one_sided_p": 0.0004997501249375312
+      },
+      {
+        "top_fraction": 0.2,
+        "k": 1010,
+        "observed_mean_lift": 2.2267252359871152,
+        "null_mean_lift": -0.0006613386205196458,
+        "empirical_one_sided_p": 0.0004997501249375312
+      }
+    ]
+  },
+  "limitations": [
+    "The release split is guide-level and comes from one study and chassis.",
+    "Guide bootstrap treats guides as independent because gene or target-cluster identifiers are absent.",
+    "This transparent ridge model is an AgriPAM benchmark model, not the authors' neural-network reproduction.",
+    "No activity threshold was pre-specified, so ROC, PR and calibration are not reported."
+  ],
+  "source": {
+    "repository": "https://github.com/tbrowne5/crisprHAL",
+    "paper_doi": "10.1038/s41467-023-41143-7",
+    "training_sha256": "383c404ed7305fb975bc0d1582eb3eb2ef0dae4fb88cc7b9a20dc019ff8f0aaa",
+    "testing_sha256": "971321d6174fc3981e4a0b48453416791a9a602b92be3eb9a3c96d033750d2ce"
+  },
+  "artifacts": {
+    "blinded_input_sha256": "4a59b2cc8095b40e4469954480a6d892be2a3039bbf719a836d38728623c8c3c",
+    "heldout_outcome_sha256": "2c0b01b6592df1d03a7cbb4c0614d21411e83c8a9169681cce87869a13639f1c",
+    "frozen_prediction_sha256": "84dea1778a4e5b3cf3fadd8744a04fed140e2b5cd5efb355bb708e618bae4542",
+    "joined_sha256": "2bfac78eaa930273362784307aff6035245d8dfe7fa179ff5b5a2f7015efc461",
+    "frozen_at_utc": "2026-09-18T00:46:28.788538+00:00"
+  },
+  "feature_count": 166,
+  "seed": 42
+}

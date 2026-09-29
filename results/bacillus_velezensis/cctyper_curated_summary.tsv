@@ -1,0 +1,7 @@
+metric	count	denominator	interpretation
+genomes_analyzed	24	24	All selected genomes completed
+raw_array_positive_genomes	1	24	One untrusted array-like prediction
+trusted_array_positive_genomes	0	24	No trusted CRISPR arrays
+confident_cas_positive_genomes	0	24	No confident Cas operons
+high_confidence_crispr_cas_genomes	0	24	No validated CRISPR-Cas systems
+tandem_repeat_artifacts	1	24	GCF_019880485.1 repeat-rich coding locus

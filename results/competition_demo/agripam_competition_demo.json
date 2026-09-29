@@ -1,0 +1,21 @@
+{
+  "project": "AgriPAM-AI",
+  "organism": "Paenibacillus polymyxa",
+  "system": "Type I-C",
+  "inferred_pam": "5'-TTC",
+  "functional_validation": "pending",
+  "unique_contexts": 16,
+  "accession_coordinate_observations": 23,
+  "evidence": {
+    "ttc_observations": "23/23",
+    "ttc_unique_contexts": "16/16",
+    "ttc_spacer_groups": "11/11",
+    "matched_background": "35/2100",
+    "bh_adjusted_q": 6.755e-34
+  },
+  "limitations": [
+    "PAM is computationally inferred",
+    "Model probabilities are ranking scores, not measured editing efficiencies",
+    "Functional validation is pending"
+  ]
+}

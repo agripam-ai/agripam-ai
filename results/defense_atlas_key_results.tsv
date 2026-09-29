@@ -1,0 +1,10 @@
+result	value	interpretation
+genomes_analyzed	72	24 genomes per species panel
+P_polymyxa_Cas_prevalence	10/24 (41.7%)	CRISPR-Cas detected in P. polymyxa panel
+B_subtilis_Cas_prevalence	0/24 (0%)	No validated CRISPR-Cas systems in panel
+B_velezensis_Cas_prevalence	0/24 (0%)	No validated CRISPR-Cas systems in panel
+B_subtilis_RM_prevalence	13/24 (an isolate.2%)	Alternative defence architecture
+B_velezensis_RM_prevalence	23/24 (95.8%)	Restriction–modification-rich chassis
+P_polymyxa_mean_systems	7.667	Highest mean detected-system burden
+B_subtilis_mean_systems	4.125	Intermediate mean detected-system burden
+B_velezensis_mean_systems	3.458	Lowest mean detected-system burden

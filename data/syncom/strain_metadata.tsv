@@ -1,0 +1,31 @@
+strain	identification	reference_accession	reference_organism	accession_basis	pathogen_screen_score	biosafety_hold	biosafety_reason	editing_precedent_tier	editing_precedent_note
+B1	withheld	withheld	withheld	same-species reference (not the isolate)	54.2	yes	cohort table: biosafety hold; pathogen-screen score 54.2 >= 30; genus requires biosafety review	none	no recorded editing precedent; genome-based editability not yet computed
+BI1	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	yes	cohort table: biosafety hold; genus requires biosafety review	none	no recorded editing precedent; genome-based editability not yet computed
+CC25	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	yes	cohort table: biosafety hold; genus requires biosafety review	none	no recorded editing precedent; genome-based editability not yet computed
+54	withheld	withheld	withheld	same-species reference (not the isolate)	34.1	yes	pathogen-screen score 34.1 >= 30	species	species-level editing precedent in the project knowledgebase
+CC26	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	species	species-level editing precedent in the project knowledgebase
+B2	withheld	withheld	withheld	proxy: NCBI resolves this name to [taxon withheld]; identity unconfirmed	Not measured	no	no project flag	genus	genus-level precedent only
+B3	withheld	withheld	withheld	same-species reference (not the isolate)	22.2	no	no project flag	species	species-level editing precedent in the project knowledgebase
+B28	withheld	withheld	withheld	same-species reference (not the isolate)	29.5	no	no project flag	species	species-level editing precedent in the project knowledgebase
+B4	withheld	withheld	withheld	same-species reference (not the isolate)	8.3	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+CC29	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B20	withheld	withheld	withheld	same-species reference (not the isolate)	10.4	no	no project flag	genus	genus-level precedent only
+B21	withheld	withheld	withheld	same-species reference (not the isolate)	10.4	no	no project flag	genus	genus-level precedent only
+B22	withheld	withheld	withheld	same-species reference (not the isolate)	0.0	no	no project flag	genus	genus-level precedent only
+B26	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B27	withheld	withheld	withheld	same-species reference (not the isolate)	6.8	no	no project flag	genus	genus-level precedent only
+B29	withheld	withheld	withheld	same-species reference (not the isolate)	13.6	no	no project flag	genus	genus-level precedent only
+B30	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	genus	genus-level precedent only
+B31	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B33	withheld	withheld	withheld	same-species reference (not the isolate)	0.0	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B34	withheld	withheld	withheld	same-species reference (not the isolate)	38.6	yes	pathogen-screen score 38.6 >= 30	species	species-level editing precedent in the project knowledgebase
+B35	withheld	withheld	withheld	same-species reference (not the isolate; contig-level)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B39	withheld	withheld	withheld	same-species reference (not the isolate)	0.0	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B44	withheld	withheld	withheld	same-species reference (not the isolate)	0.0	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B55	withheld	withheld	withheld	same-species reference (not the isolate)	0.0	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+B56	withheld	withheld	withheld	same-species reference (not the isolate)	0.0	no	no project flag	genus	genus-level precedent only
+B57	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	yes	cohort table: biosafety hold	genus	genus-level precedent only
+B58	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	genus	genus-level precedent only
+B59	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	genus	genus-level precedent only
+CC27	withheld	withheld	withheld	same-species reference (not the isolate)	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed
+CC28	withheld	NA	NA	no identification; no accession can be assumed	Not measured	no	no project flag	none	no recorded editing precedent; genome-based editability not yet computed

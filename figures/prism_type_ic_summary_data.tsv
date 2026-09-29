@@ -1,0 +1,9 @@
+Panel	Category	Successes	Total	Percent	Wilson_95CI_lower	Wilson_95CI_upper
+B_TTC_frequency	Accession observations	23	23	100.0	85.68833815495731	100.0
+B_TTC_frequency	Unique contexts	16	16	100.0	80.63923194655636	100.00000000000003
+B_TTC_frequency	Unique spacers	11	11	100.0	74.11670330319684	100.0
+B_TTC_frequency	Matched background	35	2100	1.6666666666666667	1.2008100280991556	2.3090294852872693
+C_mobile_association	Accession observations	20	21	95.23809523809523	77.33063992587743	99.15440121901737
+C_mobile_association	Unique contexts	14	15	93.33333333333333	70.18347012621999	98.81331045067316
+C_mobile_association	Unique spacers	9	10	90.0	59.58499732047615	98.21237869049271
+C_mobile_association	Matched random loci	502	2100	23.904761904761905	22.129308095383067	25.77551166159797

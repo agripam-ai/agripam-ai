@@ -1,0 +1,26 @@
+[
+  {
+    "scheme": "leave-one-query_id-out",
+    "groups": 11,
+    "pooled_heldout_hits": 23,
+    "pooled_heldout_total": 23,
+    "predicted_PAM_modal": "TTC",
+    "PAM_stable_across_folds": true,
+    "background_frequency": 0.01665,
+    "binomial_p_greater": 1.23921457324493e-41,
+    "wilson95_low": 0.8569,
+    "wilson95_high": 1.0
+  },
+  {
+    "scheme": "leave-one-target_assembly-out",
+    "groups": 15,
+    "pooled_heldout_hits": 23,
+    "pooled_heldout_total": 23,
+    "predicted_PAM_modal": "TTC",
+    "PAM_stable_across_folds": true,
+    "background_frequency": 0.01665,
+    "binomial_p_greater": 1.23921457324493e-41,
+    "wilson95_low": 0.8569,
+    "wilson95_high": 1.0
+  }
+]

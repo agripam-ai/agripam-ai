@@ -1,0 +1,4 @@
+species	panel_size	mean_defence_systems_per_genome	cas_positive_genomes	rm_positive_genomes	retron_positive_genomes	editing_accessibility_score_provisional	crispr_design_opportunity_score	interpretation
+withheld	24	4.125	0	13	2	39.92	8.25	CRISPR-poor chassis; prioritize non-CRISPR delivery and defence-barrier analysis
+withheld	24	3.458	0	23	1	24.42	6.92	CRISPR-poor chassis; prioritize non-CRISPR delivery and defence-barrier analysis
+withheld	24	7.667	10	16	4	5.33	57.0	CRISPR-rich chassis; prioritize PAM/guide and mobile-element analysis

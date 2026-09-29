@@ -1,0 +1,16 @@
+chunk	status	exit_code	requested	observed	zip_file	log_file
+chunk_00	complete	0	500	500	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_00.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_00.log
+chunk_01	failed	1	500	0	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_01.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_01.log
+chunk_02	complete	0	500	500	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_02.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_02.log
+chunk_01	complete	0	500	500	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_01.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_01.log
+chunk_03	complete	0	500	500	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_03.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_03.log
+chunk_04	failed	1	500	0	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_04.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_04.log
+chunk_05	complete	0	500	500	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_05.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_05.log
+chunk_06	failed	1	500	0	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_06.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_06.log
+chunk_07	complete	0	500	500	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_07.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_07.log
+chunk_08	failed	1	500	0	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_08.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_08.log
+chunk_09	complete	0	500	500	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_09.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_09.log
+chunk_10	complete	0	497	497	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_10.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_10.log
+chunk_04	failed	1	500	0	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_04.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_04.log
+chunk_06	complete	0	500	500	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_06.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_06.log
+chunk_08	complete	0	500	500	<home>/Academia/AgriPAM-AI/data/ncbi_packages/caudoviricetes_refseq_chunks/chunk_08.zip	<home>/Academia/AgriPAM-AI/metadata/caudoviricetes_download_logs/chunk_08.log

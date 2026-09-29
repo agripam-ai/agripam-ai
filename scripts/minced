@@ -1,0 +1,10 @@
+#!/bin/sh
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT="$(cd "$SCRIPT_DIR/.." && pwd)"
+ENV_PREFIX="${RHIZOFORGE_ENV_PREFIX:-$PROJECT/.envs/rhizoforge-select}"
+JAR="$(find "$ENV_PREFIX/share" -maxdepth 2 -name 'minced.jar' -print -quit 2>/dev/null)"
+if [ -z "$JAR" ]; then
+  echo "minced.jar was not found under $ENV_PREFIX/share" >&2
+  exit 1
+fi
+exec java -jar "$JAR" "$@"

@@ -1,0 +1,60 @@
+{
+  "benchmark_role": "sequence-matched experimental organism-transfer baseline",
+  "prediction_definition": "mean E. coli fully matched-guide repression activity across two biological replicates",
+  "heldout_outcome_definition": "mean B. subtilis fully matched-guide repression activity across two biological replicates",
+  "n_guides": 33,
+  "spearman_rho": 0.45254010695187163,
+  "bootstrap": {
+    "unit": "guide",
+    "resamples": 2000,
+    "ci95_low": 0.08759515522814022,
+    "ci95_high": 0.7222938998919454
+  },
+  "permutation": {
+    "resamples": 2000,
+    "empirical_two_sided_p": 0.008995502248875561,
+    "null_mean": 0.007162600267379677
+  },
+  "replicate_reliability": {
+    "ecoli_spearman": 0.8221925133689839,
+    "bsubtilis_spearman": 0.9872994652406417
+  },
+  "continuous_top_k": [
+    {
+      "top_fraction": 0.1,
+      "k": 4,
+      "mean_outcome": 0.6870791441146007,
+      "mean_lift_over_all": 0.014409767415784258
+    },
+    {
+      "top_fraction": 0.2,
+      "k": 7,
+      "mean_outcome": 0.7120444888760308,
+      "mean_lift_over_all": 0.039375112177214344
+    },
+    {
+      "top_fraction": 0.25,
+      "k": 9,
+      "mean_outcome": 0.7196401608340872,
+      "mean_lift_over_all": 0.04697078413527078
+    }
+  ],
+  "classification_note": "ROC/PR and calibration are not reported: no binary threshold or probability output was pre-specified.",
+  "limitations": [
+    "E. coli activity is a transfer score, not an AgriPAM-trained prediction.",
+    "The 33 guides target one GFP reporter, so this is not genome-wide validation.",
+    "The target is shared; this tests chassis transfer, not different genomic contexts.",
+    "Guide bootstrap does not remove dependence from overlapping GFP targets."
+  ],
+  "raw_sha256": {
+    "eco_biorep1.csv": "ef7c2daae0a25dae20dab30d3fa70ac93131557c47ff22ac794e264509656080",
+    "eco_biorep2.csv": "a13290316611b869d63e6d81094f6eb16c294365767bf6bd8726cba092f2dd06",
+    "bsu_biorep1.csv": "7bad498a2a7128ffe11b300ffb5780aacb8de2a5ba96688a0f1321f3631020c0",
+    "bsu_biorep2.csv": "039ef34723e25a8c7f19907f43cccc7f15c9424dfe4490c87862dfd2ee54624c"
+  },
+  "map_sha256": "f740c4419272a2c170e1eb1d677b2ed728e62e6819959ed45c7d588e77c9e425",
+  "frozen_prediction_sha256": "630002bf40677127bc25a26eeb925c21d83459d02af17907d6ca8ba4aac6fac3",
+  "heldout_outcome_sha256": "464768427a253fea8ea754298f14cf97fb8dfa9793aa5a5a7fd7051a5e709a46",
+  "joined_sha256": "639376f8bd677a081e4dc643afd8749566e4bd81fcf9d07db7c819596db45663",
+  "seed": 42
+}

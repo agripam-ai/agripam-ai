@@ -1,0 +1,54 @@
+{
+  "laboratory_design_FI20_B1_B39_B56": {
+    "bacterial_members": [
+      "B1",
+      "B39",
+      "B56"
+    ],
+    "fungal_members": [
+      "FI20"
+    ],
+    "functions_delivered": [
+      "K_solubilization",
+      "N_free_growth",
+      "P_solubilization",
+      "catalase",
+      "chitinase"
+    ],
+    "functions_missing": [
+      "beta-glucanase"
+    ],
+    "top_chassis": "B56",
+    "chassis_excluded_for_safety": [
+      "B1"
+    ],
+    "top_choice_frequency_under_random_weights": {
+      "B56": 1.0,
+      "B39": 0.0
+    }
+  },
+  "safety_screened_assembly": {
+    "bacterial_members": [
+      "B55",
+      "B3"
+    ],
+    "fungal_members": [
+      "FI20"
+    ],
+    "functions_delivered": [
+      "K_solubilization",
+      "N_free_growth",
+      "P_solubilization",
+      "catalase",
+      "chitinase",
+      "glucanase"
+    ],
+    "functions_missing": [],
+    "top_chassis": "B3",
+    "chassis_excluded_for_safety": [],
+    "top_choice_frequency_under_random_weights": {
+      "B3": 1.0,
+      "B55": 0.0
+    }
+  }
+}

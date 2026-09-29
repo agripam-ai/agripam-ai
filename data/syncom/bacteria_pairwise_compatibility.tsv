@@ -1,0 +1,116 @@
+strain	base_strain	outcome	note
+BI1	B3	not_recorded	
+BI1	B33	not_recorded	
+BI1	B34	not_recorded	
+BI1	CC25	not_recorded	
+BI1	54	mixes	
+54	B3	not_recorded	54 inh B3
+54	B33	not_recorded	54 inh B3
+54	B34	not_recorded	54 inh B3
+54	CC25	mixes	54 inh B3
+54	54	not_recorded	54 inh B3
+CC25	B3	not_recorded	B2 Inh B3
+CC25	B33	not_recorded	B2 Inh B3
+CC25	B34	not_recorded	B2 Inh B3
+CC25	CC25	not_recorded	B2 Inh B3
+CC25	54	mixes	B2 Inh B3
+CC26	B3	not_recorded	cc26 Inh B3
+CC26	B33	not_recorded	cc26 Inh B3
+CC26	B34	not_recorded	cc26 Inh B3
+CC26	CC25	mixes	cc26 Inh B3
+CC26	54	not_recorded	cc26 Inh B3
+CC29	B3	mixes	
+CC29	B33	not_recorded	
+CC29	B34	mixes	
+CC29	CC25	mixes	
+CC29	54	mixes	
+B1	B3	not_recorded	
+B1	B33	not_recorded	
+B1	B34	not_recorded	
+B1	CC25	not_recorded	
+B1	54	mixes	
+B2	B3	not_recorded	54,B2 Inh B3
+B2	B33	not_recorded	54,B2 Inh B3
+B2	B34	not_recorded	54,B2 Inh B3
+B2	CC25	mixes	54,B2 Inh B3
+B2	54	mixes	54,B2 Inh B3
+B3	B3	not_recorded	54 Inh B3
+B3	B33	mixes	54 Inh B3
+B3	B34	mixes	54 Inh B3
+B3	CC25	mixes	54 Inh B3
+B3	54	not_recorded	54 Inh B3
+B4	B3	not_recorded	
+B4	B33	not_recorded	
+B4	B34	mixes	
+B4	CC25	mixes	
+B4	54	mixes	
+B20	B3	mixes	
+B20	B33	not_recorded	
+B20	B34	mixes	
+B20	CC25	not_recorded	
+B20	54	mixes	
+B21	B3	not_recorded	
+B21	B33	not_recorded	
+B21	B34	not_recorded	
+B21	CC25	mixes	
+B21	54	not_recorded	
+B22	B3	not_recorded	54 inh B22, B3 inh?
+B22	B33	mixes	54 inh B22, B3 inh?
+B22	B34	mixes	54 inh B22, B3 inh?
+B22	CC25	not_recorded	54 inh B22, B3 inh?
+B22	54	mixes	54 inh B22, B3 inh?
+B24	B3	not_recorded	B3?
+B24	B33	mixes	B3?
+B24	B34	not_recorded	B3?
+B24	CC25	not_recorded	B3?
+B24	54	not_recorded	B3?
+B28	B3	mixes	
+B28	B33	not_recorded	
+B28	B34	mixes	
+B28	CC25	mixes	
+B28	54	mixes	
+B29	B3	not_recorded	
+B29	B33	not_recorded	
+B29	B34	not_recorded	
+B29	CC25	not_recorded	
+B29	54	not_recorded	
+B33	B3	mixes	54,C58 C26 inh BB33 
+B33	B33	not_recorded	54,C58 C26 inh BB33 
+B33	B34	not_recorded	54,C58 C26 inh BB33 
+B33	CC25	mixes	54,C58 C26 inh BB33 
+B33	54	not_recorded	54,C58 C26 inh BB33 
+B34	B3	not_recorded	54,B34 Inh B3, B34 inh B2 ?
+B34	B33	mixes	54,B34 Inh B3, B34 inh B2 ?
+B34	B34	mixes	54,B34 Inh B3, B34 inh B2 ?
+B34	CC25	not_recorded	54,B34 Inh B3, B34 inh B2 ?
+B34	54	not_recorded	54,B34 Inh B3, B34 inh B2 ?
+B39	B3	mixes	
+B39	B33	mixes	
+B39	B34	not_recorded	
+B39	CC25	mixes	
+B39	54	mixes	
+B44	B3	mixes	
+B44	B33	mixes	
+B44	B34	mixes	
+B44	CC25	mixes	
+B44	54	mixes	
+B55	B3	not_recorded	
+B55	B33	mixes	
+B55	B34	mixes	
+B55	CC25	mixes	
+B55	54	mixes	
+B56	B3	not_recorded	B3?
+B56	B33	not_recorded	B3?
+B56	B34	not_recorded	B3?
+B56	CC25	not_recorded	B3?
+B56	54	mixes	B3?
+B57	B3	not_recorded	B3?
+B57	B33	not_recorded	B3?
+B57	B34	not_recorded	B3?
+B57	CC25	not_recorded	B3?
+B57	54	mixes	B3?
+B58	B3	not_recorded	
+B58	B33	not_recorded	
+B58	B34	mixes	
+B58	CC25	not_recorded	
+B58	54	mixes	

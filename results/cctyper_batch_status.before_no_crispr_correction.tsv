@@ -1,0 +1,5 @@
+accession	status	exit_code	started	finished	output_directory	log_file
+GCF_000597985.1	completed_existing	0	2026-09-10T11:42:27+0800	2026-09-10T11:42:27+0800	<home>/Academia/AgriPAM-AI/crispr_detection/cctyper_1.8.0/GCF_000597985.1	<home>/Academia/AgriPAM-AI/crispr_detection/logs/GCF_000597985.1.log
+GCF_000785455.1	completed	0	2026-09-10T11:42:27+0800	2026-09-10T11:44:23+0800	<home>/Academia/AgriPAM-AI/crispr_detection/cctyper_1.8.0/GCF_000785455.1	<home>/Academia/AgriPAM-AI/crispr_detection/logs/GCF_000785455.1.log
+GCF_002893885.1	failed	0	2026-09-10T11:44:23+0800	2026-09-10T11:46:15+0800	<home>/Academia/AgriPAM-AI/crispr_detection/cctyper_1.8.0/GCF_002893885.1	<home>/Academia/AgriPAM-AI/crispr_detection/logs/GCF_002893885.1.log
+GCF_006274405.1	failed	0	2026-09-10T11:46:15+0800	2026-09-10T11:48:09+0800	<home>/Academia/AgriPAM-AI/crispr_detection/cctyper_1.8.0/GCF_006274405.1	<home>/Academia/AgriPAM-AI/crispr_detection/logs/GCF_006274405.1.log

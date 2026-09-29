@@ -1,0 +1,16 @@
+{
+  "geo_sha256": "ee39739925492bca2afd17da8563fbd35e4bbdbf2e4995bade03af80ed5b2f9e",
+  "supplement_sha256": "c079810cd28d4b0edb720bb67a5fee34abd6f338179bd91ef22afc3d11b51076",
+  "output_sha256": "9391caa70b533cba8e2cb70127a206a29e44e1398577dc5b55eba7b0f0038abb",
+  "matched_guides": 742,
+  "blinded_features_sha256": "21fd18d3ca8db92e39a00e14b6896eb3339e5a348c9c60212e240d98ea62db8a",
+  "unique_sequences": 742,
+  "matching_fields": [
+    "gene",
+    "OD02.logFC",
+    "OD06.logFC",
+    "OD1.logFC"
+  ],
+  "prediction_columns_present": [],
+  "blinded_file_outcome_columns": []
+}

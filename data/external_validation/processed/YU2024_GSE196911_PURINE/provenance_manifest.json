@@ -1,0 +1,26 @@
+{
+  "dataset_id": "YU2024_GSE196911_PURINE",
+  "deposit_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE196911",
+  "source_filename": "GSE196911_purine_screen_logFC.csv.gz",
+  "source_sha256": "ee39739925492bca2afd17da8563fbd35e4bbdbf2e4995bade03af80ed5b2f9e",
+  "normalized_sha256": "1ae3176ce0fdd40dd492ede0580b5f8eef52814fcfb2ff1b4524a663c3be4556",
+  "normalized_utc": "2026-09-17T11:56:06.173615+00:00",
+  "n_guides": 742,
+  "n_genes": 9,
+  "genes": [
+    "purA",
+    "purC",
+    "purD",
+    "purE",
+    "purF",
+    "purH",
+    "purK",
+    "purL",
+    "purM"
+  ],
+  "primary_outcome": "negative OD1 log2 fold-change (higher = stronger depletion)",
+  "partition": "fully external; no rows permitted in model fitting or threshold selection",
+  "prediction_file": null,
+  "validation_status": "OUTCOMES NORMALIZED; PREDICTIONS NOT YET GENERATED",
+  "interpretation": "Deposited CRISPRi depletion is an indirect activity proxy, not genome editing efficiency."
+}

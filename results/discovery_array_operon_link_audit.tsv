@@ -1,0 +1,29 @@
+accession	contig	cas_operon	cas_subtype	crispr_array	distance_bp	repeat_classifier_prediction	repeat_classifier_probability	cas_repeat_agreement	ownership_note
+GCF_000597985.1	NZ_CP006872.1	NZ_CP006872.1@46	I-C	NZ_CP006872.1_1	777	III-B	0.947	false	proximity-supported; repeat classifier conflict
+GCF_000597985.1	NZ_CP006872.1	NZ_CP006872.1@46	I-C	NZ_CP006872.1_2	182	Unknown	0.522	false	proximity-supported; repeat classifier conflict
+GCF_000785455.1	NZ_CP009909.1	NZ_CP009909.1@96	I-C	NZ_CP009909.1_1	776	III-B	0.947	false	proximity-supported; repeat classifier conflict
+GCF_000785455.1	NZ_CP009909.1	NZ_CP009909.1@96	I-C	NZ_CP009909.1_2	182	Unknown	0.522	false	proximity-supported; repeat classifier conflict
+GCF_022492955.1	NZ_CP092779.1	NZ_CP092779.1@43	I-C	NZ_CP092779.1_1	775	III-B	0.947	false	proximity-supported; repeat classifier conflict
+GCF_022492955.1	NZ_CP092779.1	NZ_CP092779.1@43	I-C	NZ_CP092779.1_2	182	Unknown	0.522	false	proximity-supported; repeat classifier conflict
+GCF_022649565.1	NZ_CP023711.1	NZ_CP023711.1@16	III-B	NZ_CP023711.1_1	3286	I-C	0.994	false	proximity-supported; repeat classifier conflict
+GCF_022649565.1	NZ_CP023711.1	NZ_CP023711.1@16	III-B	NZ_CP023711.1_2	655	I-C	0.992	false	proximity-supported; repeat classifier conflict
+GCF_022649565.1	NZ_CP023711.1	NZ_CP023711.1@16	III-B	NZ_CP023711.1-13_9	179	Unknown	0.396	false	proximity-supported; repeat classifier conflict
+GCF_022649565.1	NZ_CP023711.1	NZ_CP023711.1@16	III-B	NZ_CP023711.1-13_10	415	Unknown	0.676	false	proximity-supported; repeat classifier conflict
+GCF_022649565.1	NZ_CP023711.1	NZ_CP023711.1@93	I-C	NZ_CP023711.1_3	775	III-B	0.947	false	proximity-supported; repeat classifier conflict
+GCF_022649565.1	NZ_CP023711.1	NZ_CP023711.1@93	I-C	NZ_CP023711.1_4	182	Unknown	0.522	false	proximity-supported; repeat classifier conflict
+GCF_023374295.1	NZ_CP086373.1	NZ_CP086373.1@50	I-C	NZ_CP086373.1_2	775	III-B	0.947	false	proximity-supported; repeat classifier conflict
+GCF_023374295.1	NZ_CP086373.1	NZ_CP086373.1@50	I-C	NZ_CP086373.1_3	182	Unknown	0.522	false	proximity-supported; repeat classifier conflict
+GCF_023586785.2	NZ_CP097766.1	NZ_CP097766.1@64	III-B	NZ_CP097766.1_1	3223	I-C	0.994	false	proximity-supported; repeat classifier conflict
+GCF_023586785.2	NZ_CP097766.1	NZ_CP097766.1@64	III-B	NZ_CP097766.1_2	655	I-C	0.992	false	proximity-supported; repeat classifier conflict
+GCF_023586785.2	NZ_CP097766.1	NZ_CP097766.1@64	III-B	NZ_CP097766.1-46_5	179	Unknown	0.396	false	proximity-supported; repeat classifier conflict
+GCF_023586785.2	NZ_CP097766.1	NZ_CP097766.1@64	III-B	NZ_CP097766.1-46_6	415	Unknown	0.323	false	proximity-supported; repeat classifier conflict
+GCF_048820385.1	NZ_CP184726.1	NZ_CP184726.1@1	III-B	NZ_CP184726.1_1	376	Unknown	0.702	false	proximity-supported; repeat classifier conflict
+GCF_055379085.1	NZ_AP027909.1	NZ_AP027909.1@1	III-B	NZ_AP027909.1_6	194	III-B	0.941	true	proximity and repeat classifier agree
+GCF_055379085.1	NZ_AP027908.1	NZ_AP027908.1@54	I-C	NZ_AP027908.1_1	182	Unknown	0.522	false	proximity-supported; repeat classifier conflict
+GCF_055379085.1	NZ_AP027908.1	NZ_AP027908.1@54	I-C	NZ_AP027908.1_2	776	Unknown	0.395	false	proximity-supported; repeat classifier conflict
+GCF_056312715.1	NZ_CM149988.1	NZ_CM149988.1@46	I-C	NZ_CM149988.1_1	775	III-B	0.947	false	proximity-supported; repeat classifier conflict
+GCF_056312715.1	NZ_CM149988.1	NZ_CM149988.1@46	I-C	NZ_CM149988.1_2	182	Unknown	0.522	false	proximity-supported; repeat classifier conflict
+GCF_057219035.1	NZ_CM170113.1	NZ_CM170113.1@60	III-B	NZ_CM170113.1_1	3225	III-B	0.931	true	proximity and repeat classifier agree
+GCF_057219035.1	NZ_CM170113.1	NZ_CM170113.1@60	III-B	NZ_CM170113.1-44_3	725	I-C	0.992	false	proximity-supported; repeat classifier conflict
+GCF_057219035.1	NZ_CM170113.1	NZ_CM170113.1@60	III-B	NZ_CM170113.1-44_4	179	Unknown	0.512	false	proximity-supported; repeat classifier conflict
+GCF_057219035.1	NZ_CM170113.1	NZ_CM170113.1@60	III-B	NZ_CM170113.1-44_5	371	Unknown	0.564	false	proximity-supported; repeat classifier conflict

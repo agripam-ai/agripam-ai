@@ -1,0 +1,415 @@
+{
+  "analysis": {
+    "n_guides": 742,
+    "n_genomes": 1,
+    "spearman_rho": 0.4860205558854718,
+    "continuous_top_k": [
+      {
+        "top_fraction": 0.01,
+        "k": 8,
+        "mean_outcome": 9.121023364737363,
+        "median_outcome": 9.09095248186939,
+        "mean_lift_over_all": 2.136176568610627
+      },
+      {
+        "top_fraction": 0.05,
+        "k": 38,
+        "mean_outcome": 8.834823034150729,
+        "median_outcome": 8.93751575842818,
+        "mean_lift_over_all": 1.8499762380239924
+      },
+      {
+        "top_fraction": 0.1,
+        "k": 75,
+        "mean_outcome": 8.661927769818632,
+        "median_outcome": 8.79274850517454,
+        "mean_lift_over_all": 1.6770809736918961
+      }
+    ],
+    "per_gene_spearman": [
+      {
+        "gene_id": "purA",
+        "n_guides": 64,
+        "spearman_rho": 0.47641941391941384
+      },
+      {
+        "gene_id": "purC",
+        "n_guides": 37,
+        "spearman_rho": 0.6619250829777146
+      },
+      {
+        "gene_id": "purD",
+        "n_guides": 77,
+        "spearman_rho": 0.5458751774541248
+      },
+      {
+        "gene_id": "purE",
+        "n_guides": 35,
+        "spearman_rho": -0.2647058823529412
+      },
+      {
+        "gene_id": "purF",
+        "n_guides": 92,
+        "spearman_rho": 0.6155233266032705
+      },
+      {
+        "gene_id": "purH",
+        "n_guides": 114,
+        "spearman_rho": 0.588837812113971
+      },
+      {
+        "gene_id": "purK",
+        "n_guides": 56,
+        "spearman_rho": 0.3085440874914559
+      },
+      {
+        "gene_id": "purL",
+        "n_guides": 220,
+        "spearman_rho": 0.4837932414080681
+      },
+      {
+        "gene_id": "purM",
+        "n_guides": 47,
+        "spearman_rho": 0.6095050878815912
+      }
+    ],
+    "median_within_gene_spearman": 0.5458751774541248,
+    "classification_note": "ROC/PR, enrichment and calibration require a pre-specified biological threshold."
+  },
+  "negative_control": {
+    "n_guides": 742,
+    "n_genomes": 1,
+    "spearman_rho": -0.008604066859802952,
+    "continuous_top_k": [
+      {
+        "top_fraction": 0.01,
+        "k": 8,
+        "mean_outcome": 6.486532116959067,
+        "median_outcome": 6.29110947992292,
+        "mean_lift_over_all": -0.49831467916766936
+      },
+      {
+        "top_fraction": 0.05,
+        "k": 38,
+        "mean_outcome": 6.927654038637344,
+        "median_outcome": 8.07725760035271,
+        "mean_lift_over_all": -0.05719275748939179
+      },
+      {
+        "top_fraction": 0.1,
+        "k": 75,
+        "mean_outcome": 6.986632004110194,
+        "median_outcome": 8.25385308529038,
+        "mean_lift_over_all": 0.001785207983457937
+      }
+    ],
+    "per_gene_spearman": [
+      {
+        "gene_id": "purA",
+        "n_guides": 64,
+        "spearman_rho": -0.0836996336996337
+      },
+      {
+        "gene_id": "purC",
+        "n_guides": 37,
+        "spearman_rho": -0.1161688003793267
+      },
+      {
+        "gene_id": "purD",
+        "n_guides": 77,
+        "spearman_rho": -0.046479835953520156
+      },
+      {
+        "gene_id": "purE",
+        "n_guides": 35,
+        "spearman_rho": 0.242296918767507
+      },
+      {
+        "gene_id": "purF",
+        "n_guides": 92,
+        "spearman_rho": 0.0493195444107085
+      },
+      {
+        "gene_id": "purH",
+        "n_guides": 114,
+        "spearman_rho": -0.03184625665741885
+      },
+      {
+        "gene_id": "purK",
+        "n_guides": 56,
+        "spearman_rho": -0.21681476418318527
+      },
+      {
+        "gene_id": "purL",
+        "n_guides": 220,
+        "spearman_rho": 0.08675611254176926
+      },
+      {
+        "gene_id": "purM",
+        "n_guides": 47,
+        "spearman_rho": -0.09412580943570768
+      }
+    ],
+    "median_within_gene_spearman": -0.046479835953520156,
+    "classification_note": "ROC/PR, enrichment and calibration require a pre-specified biological threshold."
+  },
+  "cluster_bootstrap": {
+    "status": "complete",
+    "cluster_unit": "gene_id",
+    "resamples": 2000,
+    "pooled_spearman": {
+      "median": 0.486606591339484,
+      "ci95_low": 0.402245775868078,
+      "ci95_high": 0.5521684382133287,
+      "valid_resamples": 2000
+    },
+    "median_within_cluster_spearman": {
+      "median": 0.5458751774541248,
+      "ci95_low": 0.3085440874914559,
+      "ci95_high": 0.6155233266032705,
+      "valid_resamples": 2000
+    }
+  },
+  "permutation_null": {
+    "status": "complete",
+    "permutation_unit": "within gene_id",
+    "resamples": 2000,
+    "pooled_spearman": {
+      "observed": 0.4860205558854718,
+      "null_mean": 0.030949434079174616,
+      "null_sd": 0.03270502123249481,
+      "empirical_two_sided_p": 0.0004997501249375312
+    },
+    "median_within_cluster_spearman": {
+      "observed": 0.5458751774541248,
+      "null_mean": -0.0018010849021884356,
+      "null_sd": 0.04683684105169165,
+      "empirical_two_sided_p": 0.0004997501249375312
+    }
+  },
+  "leave_one_group_out": {
+    "status": "complete",
+    "group_unit": "gene_id",
+    "full_pooled_spearman": 0.4860205558854718,
+    "minimum_leave_one_out_spearman": 0.4668617662248235,
+    "maximum_leave_one_out_spearman": 0.5062881408397538,
+    "rows": [
+      {
+        "omitted_group": "purA",
+        "n_retained": 678,
+        "pooled_spearman": 0.5013886734065044,
+        "delta_from_full": 0.015368117521032565
+      },
+      {
+        "omitted_group": "purC",
+        "n_retained": 705,
+        "pooled_spearman": 0.4798119941808539,
+        "delta_from_full": -0.006208561704617921
+      },
+      {
+        "omitted_group": "purD",
+        "n_retained": 665,
+        "pooled_spearman": 0.4773953770783194,
+        "delta_from_full": -0.008625178807152412
+      },
+      {
+        "omitted_group": "purE",
+        "n_retained": 707,
+        "pooled_spearman": 0.4990497592173255,
+        "delta_from_full": 0.013029203331853645
+      },
+      {
+        "omitted_group": "purF",
+        "n_retained": 650,
+        "pooled_spearman": 0.4776904669960985,
+        "delta_from_full": -0.00833008888937331
+      },
+      {
+        "omitted_group": "purH",
+        "n_retained": 628,
+        "pooled_spearman": 0.4668617662248235,
+        "delta_from_full": -0.019158789660648323
+      },
+      {
+        "omitted_group": "purK",
+        "n_retained": 686,
+        "pooled_spearman": 0.5062881408397538,
+        "delta_from_full": 0.020267584954281992
+      },
+      {
+        "omitted_group": "purL",
+        "n_retained": 522,
+        "pooled_spearman": 0.4861281022234816,
+        "delta_from_full": 0.00010754633800974522
+      },
+      {
+        "omitted_group": "purM",
+        "n_retained": 695,
+        "pooled_spearman": 0.47847488877624916,
+        "delta_from_full": -0.007545667109222665
+      }
+    ]
+  },
+  "random_effects_meta_analysis": {
+    "status": "complete",
+    "method": "DerSimonian-Laird random effects on Fisher-z transformed Spearman correlations",
+    "groups": 9,
+    "pooled_spearman": 0.48419356057742063,
+    "ci95_low": 0.3564055233723747,
+    "ci95_high": 0.5941996747561147,
+    "tau_squared": 0.04056740157757456,
+    "cochran_q": 32.27076714355556,
+    "q_df": 8,
+    "i_squared_percent": 75.20976193589624,
+    "note": "Exploratory robustness analysis; Fisher-z variances are approximate for Spearman correlations.",
+    "per_group": [
+      {
+        "group": "purA",
+        "n": 64,
+        "spearman_rho": 0.47641941391941384
+      },
+      {
+        "group": "purC",
+        "n": 37,
+        "spearman_rho": 0.6619250829777146
+      },
+      {
+        "group": "purD",
+        "n": 77,
+        "spearman_rho": 0.5458751774541248
+      },
+      {
+        "group": "purE",
+        "n": 35,
+        "spearman_rho": -0.2647058823529412
+      },
+      {
+        "group": "purF",
+        "n": 92,
+        "spearman_rho": 0.6155233266032705
+      },
+      {
+        "group": "purH",
+        "n": 114,
+        "spearman_rho": 0.588837812113971
+      },
+      {
+        "group": "purK",
+        "n": 56,
+        "spearman_rho": 0.3085440874914559
+      },
+      {
+        "group": "purL",
+        "n": 220,
+        "spearman_rho": 0.4837932414080681
+      },
+      {
+        "group": "purM",
+        "n": 47,
+        "spearman_rho": 0.6095050878815912
+      }
+    ]
+  },
+  "top_k_permutation": {
+    "status": "complete",
+    "permutation_unit": "within gene_id",
+    "resamples": 2000,
+    "rows": [
+      {
+        "top_fraction": 0.01,
+        "k": 8,
+        "observed_mean_lift": 2.136176568610627,
+        "null_mean_lift": 0.2669972261463979,
+        "empirical_one_sided_p": 0.0004997501249375312
+      },
+      {
+        "top_fraction": 0.05,
+        "k": 38,
+        "observed_mean_lift": 1.8499762380239924,
+        "null_mean_lift": 0.3036450878809527,
+        "empirical_one_sided_p": 0.0004997501249375312
+      },
+      {
+        "top_fraction": 0.1,
+        "k": 75,
+        "observed_mean_lift": 1.6770809736918961,
+        "null_mean_lift": 0.2992098068161056,
+        "empirical_one_sided_p": 0.0004997501249375312
+      }
+    ]
+  },
+  "feature_group_sensitivity": [
+    {
+      "model": "prediction",
+      "n_guides": 742,
+      "n_genomes": 1,
+      "spearman_rho": 0.4860205558854718,
+      "median_within_gene_spearman": 0.5458751774541248,
+      "classification_note": "ROC/PR, enrichment and calibration require a pre-specified biological threshold.",
+      "delta_spearman_vs_full": 0.0,
+      "delta_median_within_gene_vs_full": 0.0
+    },
+    {
+      "model": "prediction_sensitivity_permuted_sequence",
+      "n_guides": 742,
+      "n_genomes": 1,
+      "spearman_rho": 0.11284105635890783,
+      "median_within_gene_spearman": 0.19809138230190862,
+      "classification_note": "ROC/PR, enrichment and calibration require a pre-specified biological threshold.",
+      "delta_spearman_vs_full": -0.373179499526564,
+      "delta_median_within_gene_vs_full": -0.34778379515221625
+    },
+    {
+      "model": "prediction_sensitivity_permuted_thermodynamics",
+      "n_guides": 742,
+      "n_genomes": 1,
+      "spearman_rho": 0.48634910954394617,
+      "median_within_gene_spearman": 0.5155108049844892,
+      "classification_note": "ROC/PR, enrichment and calibration require a pre-specified biological threshold.",
+      "delta_spearman_vs_full": 0.0003285536584743398,
+      "delta_median_within_gene_vs_full": -0.030364372469635637
+    },
+    {
+      "model": "prediction_sensitivity_permuted_position",
+      "n_guides": 742,
+      "n_genomes": 1,
+      "spearman_rho": 0.3914087639169535,
+      "median_within_gene_spearman": 0.4123777914269453,
+      "classification_note": "ROC/PR, enrichment and calibration require a pre-specified biological threshold.",
+      "delta_spearman_vs_full": -0.09461179196851832,
+      "delta_median_within_gene_vs_full": -0.13349738602717953
+    },
+    {
+      "model": "prediction_sensitivity_permuted_composition",
+      "n_guides": 742,
+      "n_genomes": 1,
+      "spearman_rho": 0.4871277097470326,
+      "median_within_gene_spearman": 0.5478994689521005,
+      "classification_note": "ROC/PR, enrichment and calibration require a pre-specified biological threshold.",
+      "delta_spearman_vs_full": 0.0011071538615607945,
+      "delta_median_within_gene_vs_full": 0.002024291497975672
+    },
+    {
+      "model": "prediction_sensitivity_permuted_promoter",
+      "n_guides": 742,
+      "n_genomes": 1,
+      "spearman_rho": 0.48569050412806297,
+      "median_within_gene_spearman": 0.5425627004574373,
+      "classification_note": "ROC/PR, enrichment and calibration require a pre-specified biological threshold.",
+      "delta_spearman_vs_full": -0.00033005175740885573,
+      "delta_median_within_gene_vs_full": -0.0033124769966875744
+    }
+  ],
+  "config": {
+    "positive_threshold": null,
+    "top_fractions": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "calibration_bins": 10,
+    "seed": 42,
+    "resamples": 2000
+  },
+  "input_sha256": "2749a0e50c940c07ec315b8be70e1407f720135bbeee717c63fa0f59f3aec921"
+}

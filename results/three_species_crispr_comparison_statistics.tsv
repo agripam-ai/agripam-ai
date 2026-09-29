@@ -1,0 +1,3 @@
+comparison	odds_ratio	fisher_one_sided_p	interpretation
+P_polymyxa_vs_B_subtilis	Inf	0.000299853415	Exploratory unadjusted comparison
+P_polymyxa_vs_B_velezensis	Inf	0.000299853415	Exploratory unadjusted comparison

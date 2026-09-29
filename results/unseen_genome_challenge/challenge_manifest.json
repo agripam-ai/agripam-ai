@@ -1,0 +1,70 @@
+{
+  "challenge_id": "AGRIPAM_UNSEEN_GENOME_001",
+  "frozen_at_utc": "2026-09-17T15:01:59.674944+00:00",
+  "accession": "GCF_withheld",
+  "organism": "[taxon withheld]",
+  "input_fasta_sha256": "3ece68476d53e5a6edfb0699aadb9a1ee181c78a38e99ab7400e126982d008ca",
+  "candidate_table_sha256": "a4e6c73a040f1ef86a540d7306a705721829197253cb97cf47323000a0738e26",
+  "outcomes_available_to_analysis": false,
+  "used_in_reference_model_training": false,
+  "reference_model_scope": "P. polymyxa Type I-C TTC context ranking",
+  "transfer_decision": "ABSTAIN from strain-specific native-system claim",
+  "reason": "The genome is outside the P. polymyxa reference chassis and has no challenge-specific functional outcome.",
+  "summary": {
+    "contigs": 2,
+    "total_length_bp": 6454918,
+    "gc_percent": 61.15278304077604,
+    "ambiguous_bases": 0,
+    "ambiguous_percent": 0.0,
+    "n50_bp": 6003842,
+    "l50_contigs": 1,
+    "longest_contig_bp": 6003842,
+    "shortest_contig_bp": 451076,
+    "sha256": "d0138bea1a122ada956a41790a081dc6e9cf73f38b01b39d2eaa39da9298cace",
+    "ttc_candidates": 194667,
+    "unique_candidate_spacers": 189971,
+    "mobile_context_assumption": 0
+  },
+  "exported_top_candidates": 1000,
+  "qc": [
+    {
+      "check": "sequence_content",
+      "value": 0.0,
+      "unit": "% ambiguous bases",
+      "status": "pass",
+      "interpretation": "High ambiguity can hide PAMs and invalidate guide sequences."
+    },
+    {
+      "check": "contiguity",
+      "value": 2,
+      "unit": "contigs",
+      "status": "pass",
+      "interpretation": "Fragmented assemblies can split defense loci and conceal off-target copies."
+    },
+    {
+      "check": "N50",
+      "value": 6003842,
+      "unit": "bp",
+      "status": "pass",
+      "interpretation": "A descriptive contiguity statistic; it is not a completeness estimate."
+    },
+    {
+      "check": "assembly_span",
+      "value": 6454918,
+      "unit": "bp",
+      "status": "reported",
+      "interpretation": "Compare with a trusted close reference; no taxon-specific expected size is assumed."
+    }
+  ],
+  "uncertainty": [
+    "TTC compatibility is a reference scan, not a demonstrated PAM for this organism.",
+    "Exact-copy screening is not a complete approximate off-target search.",
+    "No editing efficiency or functional activity is inferred."
+  ],
+  "next_experiment": [
+    "Confirm the intended chassis and annotate defense, repair and delivery constraints.",
+    "Compare introduced-editor and native-system options before selecting an effector.",
+    "Freeze top, middle and low-ranked candidates and test them with no-guide and non-targeting controls.",
+    "Sequence the target and nominated off-target loci before interpreting phenotype."
+  ]
+}

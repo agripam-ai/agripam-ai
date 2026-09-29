@@ -1,0 +1,14 @@
+code	meaning
+EX01	Atypical NCBI assembly
+EX02	Metagenome-assembled genome
+EX03	Multi-isolate sample
+EX04	Duplicate BioSample
+EX05	Implausible genome length
+EX06	Excessive assembly fragmentation
+EX07	Taxonomic inconsistency
+EX08	Excessive estimated contamination
+EX09	Missing or unreadable sequence file
+EX10	Unresolvable metadata
+EX11	CRISPR or Cas locus intersects a contig boundary
+EX12	Incomplete Cas operon
+EX13	Low-confidence CRISPR array

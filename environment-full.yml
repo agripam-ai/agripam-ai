@@ -1,0 +1,24 @@
+name: rhizoforge-select
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+dependencies:
+  - python=3.11
+  - streamlit>=1.38,<2
+  - pandas>=2,<2.3
+  - numpy>=1.24,<2
+  - ncbi-datasets-cli
+  - prodigal
+  - bakta
+  - prokka
+  - cctyper
+  - minced
+  - defense-finder
+  - mob_suite
+  - genomad
+  - spades
+  - unicycler
+  - flye
+  - fastp
+  - pytest

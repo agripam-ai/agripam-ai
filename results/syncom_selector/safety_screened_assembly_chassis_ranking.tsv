@@ -1,0 +1,3 @@
+strain	safety_eligible	safety_note	fit_score	fit_evidence_n	fit_notes	dispensability_score	functions_lost_if_removed	editability_precedent_score	editability_note	composite	rank
+B3	True	no project flag	100.0	1		83.3	glucanase	100.0	species-level editing precedent in the project knowledgebase	94.2	1
+B55	True	no project flag	100.0	1		66.7	K_solubilization;N_free_growth	20.0	no recorded editing precedent; genome-based editability not yet computed	68.3	2

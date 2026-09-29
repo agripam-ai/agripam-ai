@@ -1,0 +1,5 @@
+trait	positive_tips	total_tips	observed_fitch_changes	null_mean_changes	null_sd_changes	null_min_changes	null_max_changes	clustering_lower_tail_p	dispersion_upper_tail_p	permutations	random_seed	testing_role	bh_q_three_nonredundant_traits
+any_crispr	10	24	6	7.9169	1.1642722804371406	3	10	0.1111888811118888	0.974102589741026	10000	42	primary_nonredundant	0.1667833216678332
+any_cas	10	24	6	7.9119	1.1679361273116555	3	10	0.1102889711028897	0.9729027097290271	10000	42	descriptive_duplicate_of_any_crispr	
+type_I_C	7	24	4	6.1901	0.8108191739057959	2	7	0.0287971202879712	0.9975002499750024	10000	42	primary_nonredundant	0.08639136086391361
+type_III_B	5	24	4	4.6489	0.5555714679189316	1	5	0.3124687531246875	0.962903709629037	10000	42	primary_nonredundant	0.3124687531246875

@@ -1,0 +1,2 @@
+accession	contig	start	end	cctyper_trusted	predicted_subtype	subtype_probability	repeats	mean_spacer_length	spacer_length_sem	overlapping_locus	product	confident_cas	exclusion_reason
+GCF_019880485.1	NZ_CP082262.1	764523	766111	False	I-G	0.367	18	69.1	8.5	K4A81_RS03890	exosporium glycoprotein BclB-related protein	no	repeat-rich coding sequence with abnormal spacer lengths and no linked confident Cas operon

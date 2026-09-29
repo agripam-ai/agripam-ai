@@ -1,0 +1,13 @@
+name: agripam-core
+channels:
+  - conda-forge
+  - bioconda
+channel_priority: strict
+dependencies:
+  - python=3.11
+  - ncbi-datasets-cli
+  - jq
+  - seqkit
+  - blast
+  - csvtk
+

@@ -1,0 +1,30 @@
+{
+  "project": "AgriPAM-AI",
+  "version": "0.1.0",
+  "primary_organism": "Paenibacillus polymyxa",
+  "candidate_system": "Type I-C",
+  "inferred_pam": "5'-TTC",
+  "functional_validation": "pending",
+  "random_control_seed": 42,
+  "evidence": {
+    "accession_coordinate_observations": 23,
+    "ttc_accession_coordinate_observations": 23,
+    "unique_contexts": 16,
+    "ttc_unique_contexts": 16,
+    "unique_spacer_groups": 11,
+    "ttc_unique_spacer_groups": 11,
+    "matched_background_ttc": 35,
+    "matched_background_total": 2100,
+    "pam_enrichment_bh_q": 6.755e-34
+  },
+  "comparison_panels": {
+    "paenibacillus_polymyxa": {"genomes": 24, "validated_system_positive": 10},
+    "bacillus_subtilis": {"genomes": 24, "validated_system_positive": 0},
+    "bacillus_velezensis": {
+      "genomes": 24,
+      "validated_system_positive": 0,
+      "excluded_tandem_repeat_candidates": 1
+    }
+  },
+  "interpretation_boundary": "The PAM is computationally inferred until functional testing is complete."
+}
