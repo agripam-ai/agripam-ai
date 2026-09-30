@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from agripam.core import analyze_ttc_genome, parse_fasta, read_pam_scores, scan_ttc_targets, score_pam  # noqa: E402
+from agripam.editor_targeting import EDITOR_PRESETS, scan_editor_targets  # noqa: E402
 from agripam.ncbi import download_genome_fasta, get_assembly_identity, validate_assembly_accession  # noqa: E402
 from agripam.mobile_references import build_tiered_mobile_reference  # noqa: E402
 from agripam.workflow import assemble_reads, read_gff, run_genome_workflow, tool_inventory, zip_results  # noqa: E402
@@ -2511,48 +2512,70 @@ with tabs[2], st.expander("Reference 64-triplet PAM model"):
         width="stretch",
     )
 
-with tabs[2], st.expander("Reference TTC candidate designer"):
-    st.subheader("Reference 5′-TTC candidate designer")
-    st.warning(
-        "This demonstration applies the P. polymyxa reference TTC hypothesis. Use the "
-        "Genome workspace for strain-specific PAM discovery and gene mapping."
+with tabs[2], st.expander("Editor-specific target designer: TTC, NGG and TTTV", expanded=True):
+    st.subheader("Editor-specific target designer")
+    st.write(
+        "Choose the editing route first. AgriPAM-AI then applies that system's PAM orientation and guide length "
+        "to both DNA strands. TTC remains a reference hypothesis for native Type I-C; NGG and TTTV belong to "
+        "introduced editors and do not imply that the organism carries those systems naturally."
     )
+    designer_routes = {
+        "Native Type I-C candidate (reference TTC hypothesis)": {
+            "editor": "Native Type I-C candidate", "pam_pattern": "TTC", "pam_side": "5prime",
+            "protospacer_length": 35, "action": "Cascade recognition followed by Cas3 interference",
+            "evidence": "Reference-supported hypothesis; strain-specific activity requires validation",
+        },
+        "SpCas9 (introduced)": {**EDITOR_PRESETS["SpCas9"], "editor": "SpCas9", "action": "DNA cleavage", "evidence": "Introduced-editor targetability"},
+        "dCas9 / CRISPRi (introduced)": {**EDITOR_PRESETS["dCas9/CRISPRi"], "editor": "dCas9/CRISPRi", "action": "Transcriptional repression without DNA cleavage", "evidence": "Introduced-editor targetability"},
+        "Cas12a / Cpf1 (introduced)": {**EDITOR_PRESETS["Cas12a/Cpf1"], "editor": "Cas12a/Cpf1", "action": "Staggered DNA cleavage", "evidence": "Introduced-editor targetability"},
+    }
+    selected_route_name = st.selectbox("Editing route", list(designer_routes), key="knowledgebase_designer_route")
+    selected_route = designer_routes[selected_route_name]
+    r1, r2, r3 = st.columns(3)
+    r1.metric("PAM rule", selected_route["pam_pattern"])
+    r2.metric("PAM position", "5′ of target" if selected_route["pam_side"] == "5prime" else "3′ of target")
+    r3.metric("Default guide length", f"{selected_route['protospacer_length']} nt")
+    st.caption(f"Action: {selected_route['action']}. Evidence: {selected_route['evidence']}.")
     demo = "GCGATATTC" + "AACTAAATAAACAACAAAGGACTCCATACTGGTT" + "GCGATCGATC"
-    uploaded = st.file_uploader("Upload a FASTA file", type=["fa", "fasta", "fna"])
-    pasted = st.text_area("Or paste a DNA sequence", demo, height=130)
-    length = st.slider("Protospacer length", min_value=30, max_value=40, value=35)
+    uploaded = st.file_uploader("Upload a FASTA file", type=["fa", "fasta", "fna"], key="knowledgebase_designer_fasta")
+    pasted = st.text_area("Or paste a DNA sequence", demo, height=130, key="knowledgebase_designer_sequence")
+    length = st.slider("Guide or protospacer length", min_value=18, max_value=40,
+                       value=int(selected_route["protospacer_length"]), key="knowledgebase_designer_length")
 
     raw = uploaded.getvalue().decode() if uploaded else pasted
-    sequence = "".join(
-        line.strip() for line in raw.splitlines() if not line.startswith(">")
-    )
-    if st.button("Find candidate targets", type="primary"):
+    if st.button("Find targets for the selected route", type="primary", key="knowledgebase_find_editor_targets"):
         try:
-            candidates = scan_ttc_targets(sequence, length)
+            records = parse_fasta(raw if raw.lstrip().startswith(">") else f">pasted_sequence\n{raw}")
+            candidates = scan_editor_targets(records, selected_route["editor"], selected_route["pam_pattern"], selected_route["pam_side"], length)
             table = pd.DataFrame(candidates)
-            st.metric("TTC-compatible candidates", len(table))
+            st.metric(f"{selected_route['pam_pattern']}-compatible candidates", len(table))
             if table.empty:
-                st.info("No 5′-TTC candidates were found at this protospacer length.")
+                st.info(f"No {selected_route['pam_pattern']}-compatible candidates were found at this guide length. Try a different route, a regulatory region, another documented nuclease or a validated neutral insertion site.")
             else:
                 table.insert(0, "candidate_id", [f"AGP{i:04d}" for i in range(1, len(table)+1)])
-                table["model_status"] = "PAM-compatible; off-target analysis required"
+                table["evidence_scope"] = selected_route["evidence"]
+                table["model_status"] = "PAM-compatible; gene consequence, delivery, repair and off-target validation required"
                 st.dataframe(table, hide_index=True, width="stretch")
                 st.download_button(
                     "Download candidate TSV",
                     table.to_csv(sep="\t", index=False),
-                    file_name="agripam_candidates.tsv",
+                    file_name="agripam_editor_specific_candidates.tsv",
                     mime="text/tab-separated-values",
                 )
                 report = {
                     "tool": "AgriPAM-AI",
-                    "pam": "5'-TTC",
+                    "route": selected_route_name,
+                    "pam_pattern": selected_route["pam_pattern"],
+                    "pam_side": selected_route["pam_side"],
+                    "action": selected_route["action"],
+                    "evidence_scope": selected_route["evidence"],
                     "functional_validation": "pending",
                     "candidates": table.to_dict(orient="records"),
                 }
                 st.download_button(
                     "Download machine-readable JSON",
                     json.dumps(report, indent=2),
-                    file_name="agripam_candidates.json",
+                    file_name="agripam_editor_specific_candidates.json",
                     mime="application/json",
                 )
         except ValueError as error:
@@ -2644,8 +2667,8 @@ with tabs[4], st.expander("Reproducibility contract", expanded=True):
     )
     st.code("python -m unittest discover -s tests -v", language="bash")
 
-with tabs[2], st.expander("Quick reference-TTC demonstration"):
-    st.subheader("Quick reference-TTC scan")
+with tabs[2], st.expander("Type I-C TTC benchmark genome scan"):
+    st.subheader("Type I-C TTC benchmark genome scan")
     st.write(
         "Upload a genome FASTA or enter a versioned NCBI assembly accession. This quick demonstration "
         "AgriPAM-AI validates the sequence, summarizes the assembly, finds "
