@@ -213,9 +213,9 @@ TAB_NAMES = [
 ]
 DISPLAY_ORDER = [
     "Start here",
-    "Genome evaluation",
-    "SynCom candidate bank",
     "Agricultural editing knowledgebase",
+    "SynCom candidate bank",
+    "Genome evaluation",
     "Parts & constructs",
     "External validation",
     "Software & reproducibility",
