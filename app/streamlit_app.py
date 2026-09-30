@@ -533,6 +533,21 @@ with tabs[0]:
 
 with tabs[1]:
     st.header("Genome-to-design workspace")
+    active_design = st.session_state.get("design_handoff")
+    if active_design:
+        st.success(
+            f"**Active SynCom design:** community {', '.join(active_design.get('community', []))}; "
+            f"selected chassis **{active_design.get('chassis', 'not selected')}**; "
+            f"objective **{active_design.get('objective', 'not defined')}**."
+        )
+        st.caption(
+            "Provide the exact selected-isolate genome below. AgriPAM-AI will compare native evidence, "
+            "SpCas9/dCas9 NGG sites and Cas12a TTTV sites, map candidates to genes and neutral regions, "
+            "and preserve the functions marked as protected. A related-species reference cannot confirm isolate targets."
+        )
+        if st.button("Clear SynCom design handoff", key="clear_design_handoff"):
+            del st.session_state["design_handoff"]
+            st.rerun()
     st.info(
         "This workspace analyzes the genome supplied below. Its outputs are separate "
         "from the fixed comparative P. polymyxa reference study shown in the other tabs.",
@@ -1259,6 +1274,149 @@ with tabs[1]:
         )
 
         if not introduced_targets_df.empty:
+            if active_design and not compatibility_df.empty:
+                st.markdown("### SynCom-aware editing-route recommendation")
+                st.write(
+                    "This step connects the selected community and chassis to the exact genome analysis. "
+                    "It compares introduced editors, removes candidates whose annotations overlap a function "
+                    "you asked to preserve, and prioritizes a route appropriate for the stated objective."
+                )
+
+                objective_text = str(active_design.get("objective", "")).strip()
+                protected_functions = [
+                    str(value).strip()
+                    for value in active_design.get("protected_functions", [])
+                    if str(value).strip()
+                ]
+                ignored_terms = {
+                    "activity", "agricultural", "benefit", "function", "growth",
+                    "production", "plant", "preserve", "existing", "other",
+                }
+
+                def _design_terms(values):
+                    terms = set()
+                    for value in values:
+                        terms.update(
+                            token
+                            for token in re.findall(r"[a-z0-9]+", value.lower())
+                            if len(token) >= 4 and token not in ignored_terms
+                        )
+                    return terms
+
+                protected_terms = _design_terms(protected_functions)
+                objective_terms = _design_terms([objective_text])
+                route_candidates = introduced_targets_df.copy()
+                product_text = route_candidates.get(
+                    "product", pd.Series("", index=route_candidates.index)
+                ).fillna("").astype(str).str.lower()
+                route_candidates["protected_annotation_overlap"] = product_text.apply(
+                    lambda value: any(term in value for term in protected_terms)
+                )
+                route_candidates["objective_annotation_match"] = product_text.apply(
+                    lambda value: any(term in value for term in objective_terms)
+                )
+                route_candidates["is_intergenic_candidate"] = route_candidates.get(
+                    "gene_relation", pd.Series("", index=route_candidates.index)
+                ).fillna("").astype(str).str.lower().str.contains("intergenic|uncalled", regex=True)
+                route_candidates["is_exact_unique"] = route_candidates.get(
+                    "exact_uniqueness", pd.Series("", index=route_candidates.index)
+                ).fillna("").astype(str).str.lower().eq("unique")
+                route_score_column = (
+                    "offtarget_adjusted_priority_score"
+                    if "offtarget_adjusted_priority_score" in route_candidates.columns
+                    else "guide_priority_score"
+                )
+                route_candidates["_route_score"] = pd.to_numeric(
+                    route_candidates.get(route_score_column, 0), errors="coerce"
+                ).fillna(0)
+
+                regulation_objective = any(
+                    term in objective_text.lower()
+                    for term in ("regulat", "repress", "activate", "expression", "preserve")
+                )
+                addition_objective = any(
+                    term in objective_text.lower()
+                    for term in ("add", "insert", "introduc", "missing", "benefit")
+                )
+                compatibility_lookup = {
+                    str(row.get("editor", "")): row
+                    for row in compatibility_df.to_dict("records")
+                }
+                route_rows = []
+                safe_candidate_sets = {}
+                for editor, group in route_candidates.groupby("editor", sort=False):
+                    editor = str(editor)
+                    unprotected = group.loc[~group["protected_annotation_overlap"]].copy()
+                    exact_unique = unprotected.loc[unprotected["is_exact_unique"]].copy()
+                    preferred_pool = exact_unique if not exact_unique.empty else unprotected
+                    if addition_objective:
+                        neutral_pool = preferred_pool.loc[preferred_pool["is_intergenic_candidate"]]
+                        if not neutral_pool.empty:
+                            preferred_pool = neutral_pool
+                    elif objective_terms:
+                        objective_pool = preferred_pool.loc[preferred_pool["objective_annotation_match"]]
+                        if not objective_pool.empty:
+                            preferred_pool = objective_pool
+                    preferred_pool = preferred_pool.sort_values("_route_score", ascending=False)
+                    safe_candidate_sets[editor] = preferred_pool
+                    compatibility = compatibility_lookup.get(editor, {})
+                    route_priority = float(preferred_pool["_route_score"].max()) if not preferred_pool.empty else -1
+                    if regulation_objective and editor == "dCas9/CRISPRi":
+                        route_priority += 25
+                    if not regulation_objective and editor == "dCas9/CRISPRi":
+                        route_priority -= 10
+                    if addition_objective:
+                        route_priority += min(20, 2 * int(preferred_pool["is_intergenic_candidate"].sum()))
+                    if str(compatibility.get("compatibility_tier", "")).startswith("computationally compatible"):
+                        route_priority += 10
+                    route_rows.append({
+                        "Editing route": editor,
+                        "PAM": compatibility.get("pam_rule", "not reported"),
+                        "Genome-wide sites": int(compatibility.get("pam_compatible_sites", len(group)) or 0),
+                        "Protected-overlap warnings": int(group["protected_annotation_overlap"].sum()),
+                        "Remaining exact-unique": int(len(exact_unique)),
+                        "Candidate neutral regions": int(unprotected["is_intergenic_candidate"].sum()),
+                        "Objective-annotation matches": int(unprotected["objective_annotation_match"].sum()),
+                        "Chassis assessment": compatibility.get("compatibility_tier", "unresolved"),
+                        "_priority": route_priority,
+                    })
+
+                route_summary = pd.DataFrame(route_rows).sort_values(
+                    ["_priority", "Remaining exact-unique"], ascending=[False, False]
+                ).reset_index(drop=True)
+                route_summary.insert(0, "Priority", range(1, len(route_summary) + 1))
+                best_editor = str(route_summary.iloc[0]["Editing route"])
+                best_pool = safe_candidate_sets.get(best_editor, pd.DataFrame())
+                st.success(
+                    f"Highest-priority computational route for **{active_design.get('chassis', 'the selected chassis')}**: "
+                    f"**{best_editor}** for the objective **{objective_text or 'not defined'}**. "
+                    "This is a design recommendation, not a prediction of successful editing."
+                )
+                st.dataframe(
+                    route_summary.drop(columns=["_priority"]), hide_index=True, width="stretch"
+                )
+                if not best_pool.empty:
+                    top = best_pool.iloc[0]
+                    target_context = str(top.get("gene_relation", "unresolved"))
+                    target_product = str(top.get("product", "")).strip() or "no annotated product"
+                    st.markdown(
+                        f"**Top loaded candidate for this route:** `{top.get('contig', '')}:"
+                        f"{int(top.get('start', 0))}-{int(top.get('end', 0))}`; PAM "
+                        f"**{top.get('pam', 'NA')}**; context **{target_context}**; annotation "
+                        f"**{target_product}**. Inspect it in the candidate designer below before export."
+                    )
+                if protected_functions:
+                    st.caption(
+                        "Protected functions requested: " + ", ".join(protected_functions) + ". "
+                        "Exclusion here is based on annotation-keyword overlap. It cannot replace essential-gene, "
+                        "operon, promoter, polar-effect or phenotype analysis."
+                    )
+                st.warning(
+                    "A candidate intergenic site is not automatically a validated neutral insertion site. "
+                    "Confirm regulatory context, neighboring genes, operon structure, essentiality, off-targets, "
+                    "delivery and repair in the exact isolate before construct design."
+                )
+
             st.markdown("### Editing Strategy Candidate Designer")
             st.caption(
                 "Genome-wide target discovery → PAM compatibility → exact uniqueness → "
@@ -2074,7 +2232,8 @@ with tabs[2], st.expander("Analyze your own bank: fill in or upload the Excel wo
                     if excluded:
                         st.warning("Not ranked as chassis because of a biosafety flag: " + ", ".join(excluded))
                     st.markdown("**Chassis ranking**")
-                    st.dataframe(pd.DataFrame(result_in["ranking"]), hide_index=True, width="stretch")
+                    user_ranking = pd.DataFrame(result_in["ranking"])
+                    st.dataframe(user_ranking, hide_index=True, width="stretch")
                     st.markdown("**Function coverage (best score in the community)**")
                     st.dataframe(pd.DataFrame({"function": list(result_in["coverage"]),
                                                "best score": list(result_in["coverage"].values())}),
@@ -2082,6 +2241,33 @@ with tabs[2], st.expander("Analyze your own bank: fill in or upload the Excel wo
                     if result_in["gaps"]:
                         st.markdown("**Functional gaps and possible donors**")
                         st.dataframe(pd.DataFrame(result_in["gaps"]), hide_index=True, width="stretch")
+                    st.markdown("**Send a bank decision to genome design**")
+                    eligible_user_chassis = [str(row["strain"]) for row in result_in["ranking"] if bool(row.get("safety_eligible", False))]
+                    if eligible_user_chassis:
+                        chosen_user_chassis = st.selectbox("Selected chassis from this ranking", eligible_user_chassis, key="user_bank_selected_chassis")
+                        gap_names = [str(row.get("missing_function", "")) for row in result_in["gaps"] if row.get("missing_function")]
+                        chosen_user_objective = st.selectbox(
+                            "Agricultural objective",
+                            gap_names + ["Add another agricultural benefit — specify", "Preserve or regulate an existing function"],
+                            key="user_bank_selected_objective",
+                        )
+                        if chosen_user_objective == "Add another agricultural benefit — specify":
+                            chosen_user_objective = st.text_input("Benefit to add", key="user_bank_custom_objective", placeholder="e.g. beta-glucanase or phosphate solubilization").strip()
+                        protected_user_functions = st.multiselect(
+                            "Functions that must not be disrupted", list(result_in["coverage"]),
+                            default=[name for name, score in result_in["coverage"].items() if float(score) >= threshold_in],
+                            key="user_bank_protected_functions",
+                        )
+                        if st.button("Use this SynCom decision in Genome evaluation", type="primary", key="user_bank_handoff"):
+                            if not chosen_user_objective:
+                                st.warning("Define the agricultural objective before continuing.")
+                            else:
+                                st.session_state["design_handoff"] = {
+                                    "source": "uploaded microbial bank", "community": list(result_in["members"]),
+                                    "chassis": chosen_user_chassis, "objective": chosen_user_objective,
+                                    "protected_functions": protected_user_functions,
+                                }
+                                st.success("Design saved. Open Genome evaluation and provide the exact selected-isolate genome.")
                     st.caption("Top choice under 2,000 random weightings (seed 42): "
                                + ", ".join(f"{k} {v:.0%}" for k, v in result_in["sensitivity"].items()))
                     st.download_button("Download the results (.xlsx)", syncom_io.results_to_xlsx(result_in, issues_in),
@@ -2123,8 +2309,10 @@ with tabs[2], st.expander("Community-aware chassis selection: which SynCom membe
         st.dataframe(ranking, hide_index=True, width="stretch")
         gaps_path = syncom_dir / f"{scenario}_gap_analysis.tsv"
         st.subheader("Functional gaps")
+        scenario_gaps = pd.DataFrame()
         if gaps_path.exists():
-            st.dataframe(pd.read_csv(gaps_path, sep="\t"), hide_index=True, width="stretch")
+            scenario_gaps = pd.read_csv(gaps_path, sep="\t")
+            st.dataframe(scenario_gaps, hide_index=True, width="stretch")
         else:
             st.success("No function tested in the bank is missing from this community.")
         st.caption(
@@ -2136,6 +2324,34 @@ with tabs[2], st.expander("Community-aware chassis selection: which SynCom membe
             "a genus/species lookup, and genome-based editability is not yet computed. Genome accessions in "
             "data/syncom/strain_metadata.tsv are same-species references, not the isolates."
         )
+        st.markdown("### Send this SynCom decision to genome design")
+        safety_values = ranking["safety_eligible"].astype(str).str.lower().isin(["true", "1", "yes"])
+        eligible_scenario_chassis = ranking.loc[safety_values, "strain"].astype(str).tolist()
+        if eligible_scenario_chassis:
+            default_chassis = info.get("top_chassis") if info.get("top_chassis") in eligible_scenario_chassis else eligible_scenario_chassis[0]
+            chosen_scenario_chassis = st.selectbox("Selected chassis", eligible_scenario_chassis, index=eligible_scenario_chassis.index(default_chassis), key="scenario_selected_chassis")
+            gap_column = "missing_function" if "missing_function" in scenario_gaps.columns else None
+            scenario_gap_names = scenario_gaps[gap_column].dropna().astype(str).tolist() if gap_column else list(info.get("functions_missing", []))
+            chosen_scenario_objective = st.selectbox(
+                "Agricultural objective",
+                scenario_gap_names + ["Add another agricultural benefit — specify", "Preserve or regulate an existing function"],
+                key="scenario_selected_objective",
+            )
+            if chosen_scenario_objective == "Add another agricultural benefit — specify":
+                chosen_scenario_objective = st.text_input("Benefit to add", key="scenario_custom_objective", placeholder="e.g. beta-glucanase or phosphate solubilization").strip()
+            protected_options = sorted(set(info.get("functions_covered", [])))
+            protected_scenario_functions = st.multiselect("Functions that must not be disrupted", protected_options, default=protected_options, key="scenario_protected_functions")
+            if st.button("Use this decision in Genome evaluation", type="primary", key="scenario_handoff"):
+                if not chosen_scenario_objective:
+                    st.warning("Define the agricultural objective before continuing.")
+                else:
+                    st.session_state["design_handoff"] = {
+                        "source": scenario.replace("_", " "),
+                        "community": list(info.get("bacterial_members", [])) + list(info.get("fungal_members", [])),
+                        "chassis": chosen_scenario_chassis, "objective": chosen_scenario_objective,
+                        "protected_functions": protected_scenario_functions,
+                    }
+                    st.success("Design saved. Open Genome evaluation and provide the exact selected-isolate genome.")
 
 with tabs[2], st.expander("Native-bank evidence and candidate selection", expanded=True):
     st.header("Laboratory bank: candidate SynCom (worked example)")
