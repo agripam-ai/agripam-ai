@@ -1907,6 +1907,14 @@ with tabs[3]:
         "It means that the available evidence does not support that conclusion; an introduced nuclease, "
         "recombineering or another editing route may still be feasible."
     )
+    st.markdown("### 1. Add your microbial bank and rank the community")
+    st.write(
+        "Begin by adding the agricultural characteristics measured for your isolates and their pairwise "
+        "compatibility or antagonism results. AgriPAM-AI combines those observations with the current "
+        "knowledgebase to rank candidate SynCom members by agricultural contribution, functional coverage, "
+        "community compatibility, interaction evidence and project biosafety flags."
+    )
+    knowledgebase_bank_entry = st.container()
 
     with st.expander("Thirty-isolate native-system discovery cohort", expanded=True):
         st.write(
@@ -2149,11 +2157,14 @@ with tabs[4], st.expander("Editing-system modules and capabilities", expanded=Tr
     else:
         st.warning("Run a genome workflow first to populate system results and site-to-gene consequences.")
 
-with tabs[2], st.expander("Analyze your own bank: fill in or upload the Excel workbook and get the ranking", expanded=True):
+with knowledgebase_bank_entry, st.expander("Upload your microbial bank and calculate the SynCom ranking", expanded=True):
     st.write(
-        "Enter your tested strains in the Excel template (one row per strain, bacterium or fungus, functions scored 0–5, blank = not tested), "
-        "upload it here, and the software assembles a compatible community of two or more components, finds its functional gaps and ranks which "
-        "member (bacterium or fungus) is the best genome-editing chassis. Fungi with function scores count as members; their compatibility with bacteria and with each other is checked. Nothing is uploaded anywhere: the file is analysed in this session."
+        "Enter the tested strains in the Excel template: one row per bacterium or fungus, agricultural functions "
+        "scored from 0–5, blank values for measurements not performed, and the available pairwise interaction data. "
+        "After upload, the software can assemble a compatible community, identify missing functions and rank which "
+        "member is the most appropriate genome-editing chassis. The ranking separates measured evidence from missing "
+        "data and applies the project biosafety exclusions. Nothing is transmitted elsewhere; the workbook is analyzed "
+        "only in this application session."
     )
     syncom_dir_in = ROOT / "data" / "syncom"
     d1, d2 = st.columns(2)
