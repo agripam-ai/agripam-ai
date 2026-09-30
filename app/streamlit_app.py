@@ -439,6 +439,26 @@ with tabs[0]:
             "the bacterium's native CRISPR system."
         )
 
+    st.subheader("Editing route selector")
+    st.write(
+        "AgriPAM-AI evaluates several routes separately. The preferred route must be able to create the intended "
+        "effect while preserving essential agricultural, developmental and community-complementarity functions. "
+        "A PAM elsewhere in the genome is irrelevant unless editing at that site can produce the intended effect."
+    )
+    start_route_table = pd.DataFrame([
+        {"Route": "Native Type I-C candidate", "PAM or target rule": "Usually a 5′ PAM; TTC is the current P. polymyxa hypothesis", "Action": "Cascade recognition followed by Cas3 interference", "When it can be preferred": "The isolate has an intact, active and deliverable strain-specific locus"},
+        {"Route": "SpCas9", "PAM or target rule": "NGG adjacent to the intended DNA target", "Action": "DNA cleavage", "When it can be preferred": "A unique target and compatible repair route are available"},
+        {"Route": "dCas9 / CRISPRi", "PAM or target rule": "NGG in a useful promoter or transcriptional region", "Action": "Repression without DNA cleavage", "When it can be preferred": "Reversible regulation is safer or more appropriate than a permanent edit"},
+        {"Route": "Cas12a / Cpf1", "PAM or target rule": "Typically TTTV; variant-specific", "Action": "Staggered DNA cleavage", "When it can be preferred": "A suitable target and supported delivery route are available"},
+        {"Route": "Alternative or insertion route", "PAM or target rule": "Variant-specific PAM, regulatory site or validated neutral locus", "Action": "Alternative targeting, regulation or function insertion", "When it can be preferred": "The intended locus lacks a useful PAM or the objective is to add a missing benefit"},
+    ])
+    st.dataframe(start_route_table, hide_index=True, width="stretch")
+    st.caption(
+        "Ranking order: preserve required functions; match the biological objective; require a correctly positioned "
+        "target; evaluate guide uniqueness and off-target risk; then assess delivery, defence, repair and controls. "
+        "PAM compatibility indicates computational targetability, not successful editing."
+    )
+
     st.divider()
     st.subheader("Plan your target-organism project")
     objective_col, readout_col = st.columns(2)
