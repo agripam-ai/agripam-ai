@@ -52,6 +52,14 @@ def _pick(label: str, parts: dict, roles: list[str], key: str, optional: bool = 
 
 def render(root: Path) -> None:
     st.header("Parts and constructs: from a chosen edit to a followed experiment")
+    project_brief = st.session_state.get("project_brief", {})
+    project_modification = str(project_brief.get("modification", ""))
+    project_readout = str(project_brief.get("readout", ""))
+    if project_modification not in ("", "Not yet defined") or project_readout:
+        st.info(
+            f"**Project definition:** {project_modification or 'modification not defined'}; "
+            f"validate primarily with **{project_readout or 'a readout still to be selected'}**."
+        )
     st.info(
         "Choose BioBrick-style parts, assemble the construct for the edit you selected, screen it against standard-assembly "
         "rules and the chassis's restriction motifs, then track what happens at the bench. A compatible part is not a "
@@ -129,7 +137,26 @@ def render(root: Path) -> None:
                 label, motif = (x.strip() for x in line.split("=", 1))
                 motifs[label] = motif
         scar_label = st.selectbox("Junction between parts", list(bb.SCARS), key="bb_scar")
-        edit_type = st.radio("Edit type", ["Reporter insertion at a neutral site", "CRISPRi guide cassette"], horizontal=True, key="bb_edit")
+        if "interference" in project_modification.lower() or "repress" in project_modification.lower():
+            recommended_construct = "CRISPRi guide cassette"
+        elif "insert" in project_modification.lower():
+            recommended_construct = "Reporter insertion at a neutral site"
+        else:
+            recommended_construct = ""
+        if recommended_construct:
+            st.caption(f"Recommended starting construct for the selected modification: **{recommended_construct}**.")
+        elif project_modification not in ("", "Not yet defined"):
+            st.warning(
+                f"The current builder does not yet generate a complete {project_modification.lower()} construct. "
+                "Use the genome-route recommendation and add the required repair or regulatory components manually."
+            )
+        edit_type = st.radio(
+            "Edit type",
+            ["Reporter insertion at a neutral site", "CRISPRi guide cassette"],
+            index=1 if recommended_construct == "CRISPRi guide cassette" else 0,
+            horizontal=True,
+            key="bb_edit",
+        )
         genome_upload = st.file_uploader("Genome FASTA (optional if you analysed a genome in the Genome evaluation tab)",
                                          type=["fa", "fasta", "fna"], key="bb_genome")
         records, genome_label, result_dir = _genome_records(root, genome_upload)
@@ -268,9 +295,13 @@ def render(root: Path) -> None:
         group = st.text_input("Experiment name", "experiment 1", key="bb_group")
         t1, t2 = st.columns(2)
         if t1.button("Create tracker rows from the built constructs", key="bb_mk_tracker", disabled=not constructs, width="stretch"):
-            st.session_state["bb_tracker"] = bb.tracker_rows(
+            new_tracker_rows = bb.tracker_rows(
                 [{"construct_id": c["construct_id"], "edit_type": c["edit_type"], "target": c["target"], "parts": c["parts"],
                   "length_bp": len(c["sequence"]), "predicted_score": c.get("predicted_score", "")} for c in constructs], group)
+            if project_readout:
+                for row in new_tracker_rows:
+                    row["assay"] = project_readout
+            st.session_state["bb_tracker"] = new_tracker_rows
         tracker_upload = t2.file_uploader("Or upload a filled tracker (.xlsx)", type=["xlsx"], key="bb_tracker_up", label_visibility="collapsed")
         if tracker_upload is not None and st.session_state.get("bb_last_tracker") != tracker_upload.file_id:
             try:

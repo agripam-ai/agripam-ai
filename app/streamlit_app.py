@@ -462,46 +462,50 @@ with tabs[0]:
     )
 
     st.divider()
-    st.subheader("Plan your target-organism project")
-    objective_col, readout_col = st.columns(2)
-    with objective_col:
-        editing_objective = st.selectbox(
-            "Intended modification",
-            ["Not yet defined", "Gene deletion", "Gene insertion", "Sequence replacement", "Point mutation", "CRISPR interference (repression)", "Gene activation"],
-            key="editing_objective",
-            help="Define the biological change before guide or construct design.",
+    with st.expander("Define the intended edit and success measurement", expanded=False):
+        st.caption(
+            "These choices are carried into Genome evaluation, route prioritization, construct design and validation."
         )
-    with readout_col:
-        phenotype_readout_choice = st.selectbox(
-            "Primary measurable readout",
-            [
-                "Not yet selected",
-                "Fluorescence reporter",
-                "Antifungal inhibition",
-                "Antibacterial inhibition",
-                "Phosphate solubilization",
-                "Nitrogen transformation",
-                "Siderophore production",
-                "Lipopeptide or metabolite production",
-                "Hydrolytic-enzyme activity",
-                "Root colonization",
-                "Growth or fitness",
-                "Transformation or editing efficiency",
-                "Other — specify",
-            ],
-            key="phenotype_readout_choice",
-            help="Select the main quantitative measurement that would indicate whether the design worked.",
-        )
-        if phenotype_readout_choice == "Other — specify":
-            phenotype_readout = st.text_input(
-                "Describe the other measurable readout",
-                key="phenotype_readout_other",
-                placeholder="Enter a measurable phenotype and, if possible, its unit",
-            ).strip()
-        elif phenotype_readout_choice == "Not yet selected":
-            phenotype_readout = ""
-        else:
-            phenotype_readout = phenotype_readout_choice
+        objective_col, readout_col = st.columns(2)
+        with objective_col:
+            editing_objective = st.selectbox(
+                "Intended modification",
+                ["Not yet defined", "Gene deletion", "Gene insertion", "Sequence replacement", "Point mutation", "CRISPR interference (repression)", "Gene activation"],
+                key="editing_objective",
+                help="Defines which editing routes and construct types are prioritized downstream.",
+            )
+        with readout_col:
+            phenotype_readout_choice = st.selectbox(
+                "Primary measurable readout",
+                [
+                    "Not yet selected", "Fluorescence reporter", "Antifungal inhibition",
+                    "Antibacterial inhibition", "Phosphate solubilization", "Nitrogen transformation",
+                    "Siderophore production", "Lipopeptide or metabolite production",
+                    "Hydrolytic-enzyme activity", "Root colonization", "Growth or fitness",
+                    "Transformation or editing efficiency", "Other — specify",
+                ],
+                key="phenotype_readout_choice",
+                help="Defines the primary validation outcome carried into later design steps.",
+            )
+            if phenotype_readout_choice == "Other — specify":
+                phenotype_readout = st.text_input(
+                    "Describe the other measurable readout",
+                    key="phenotype_readout_other",
+                    placeholder="Enter a measurable phenotype and, if possible, its unit",
+                ).strip()
+            elif phenotype_readout_choice == "Not yet selected":
+                phenotype_readout = ""
+            else:
+                phenotype_readout = phenotype_readout_choice
+        if editing_objective != "Not yet defined" or phenotype_readout:
+            st.info(
+                f"Active project definition: **{editing_objective}**; success measured primarily by "
+                f"**{phenotype_readout or 'a readout still to be selected'}**."
+            )
+    st.session_state["project_brief"] = {
+        "modification": editing_objective,
+        "readout": phenotype_readout,
+    }
     genome_ready = bool(st.session_state.get("full_workflow"))
     objective_ready = editing_objective != "Not yet defined" and bool(phenotype_readout.strip())
     roadmap_steps = [
@@ -516,17 +520,14 @@ with tabs[0]:
         ("9. Confirm the genotype", "Verify the target locus, edit junctions, sequence and construct loss or persistence.", "Links confirmation records to the selected candidate.", "Wet-lab confirmation required"),
         ("10. Validate function and safety", "Measure fitness, intended phenotype, preservation of beneficial functions and non-target effects.", "Links measurements to predictions for evidence updating.", "Wet-lab validation required"),
     ]
-    for title, requirement, contribution, status in roadmap_steps:
-        with st.expander(f"{title} — {status}", expanded=title.startswith("1.")):
-            st.markdown(f"**What is required:** {requirement}")
-            st.markdown(f"**AgriPAM-AI contribution:** {contribution}")
-            st.markdown(f"**Current status:** {status}")
     completed_foundations = int(objective_ready) + int(genome_ready)
     st.progress(completed_foundations / 2, text=f"Computational preparation foundations completed: {completed_foundations}/2")
-    st.markdown(
-        "**Decision chain:** verified genome → compatible editing route → target and PAM → delivery → "
-        "repair → sequence confirmation → phenotype and safety validation"
-    )
+    with st.expander("View the complete project roadmap", expanded=False):
+        st.dataframe(
+            pd.DataFrame(roadmap_steps, columns=["Stage", "What is required", "AgriPAM-AI contribution", "Status"]),
+            hide_index=True,
+            width="stretch",
+        )
     st.caption(
         "AgriPAM-AI supports evidence collection and design prioritization. Delivery, successful editing, "
         "phenotype and safety require an approved strain-specific procedure and physical validation."
@@ -535,6 +536,12 @@ with tabs[0]:
 with tabs[1]:
     st.header("Genome-to-design workspace")
     active_design = st.session_state.get("design_handoff")
+    project_brief = st.session_state.get("project_brief", {})
+    if project_brief.get("modification") != "Not yet defined" or project_brief.get("readout"):
+        st.info(
+            f"**Project definition carried forward:** {project_brief.get('modification', 'not defined')}; "
+            f"primary validation readout: **{project_brief.get('readout') or 'not selected'}**."
+        )
     if active_design:
         st.success(
             f"**Active SynCom design:** community {', '.join(active_design.get('community', []))}; "
@@ -1275,18 +1282,23 @@ with tabs[1]:
         )
 
         if not introduced_targets_df.empty:
-            if active_design and not compatibility_df.empty:
-                st.markdown("### SynCom-aware editing-route recommendation")
+            project_modification = str(project_brief.get("modification", "")).strip()
+            route_context_ready = bool(active_design) or project_modification not in ("", "Not yet defined")
+            if route_context_ready and not compatibility_df.empty:
+                st.markdown("### Objective-aware editing-route recommendation")
                 st.write(
-                    "This step connects the selected community and chassis to the exact genome analysis. "
+                    "This step connects the intended modification, selected community and chassis to the exact genome analysis. "
                     "It compares introduced editors, removes candidates whose annotations overlap a function "
                     "you asked to preserve, and prioritizes a route appropriate for the stated objective."
                 )
 
-                objective_text = str(active_design.get("objective", "")).strip()
+                syncom_objective = str((active_design or {}).get("objective", "")).strip()
+                objective_text = "; ".join(
+                    value for value in (project_modification, syncom_objective) if value and value != "Not yet defined"
+                )
                 protected_functions = [
                     str(value).strip()
-                    for value in active_design.get("protected_functions", [])
+                    for value in (active_design or {}).get("protected_functions", [])
                     if str(value).strip()
                 ]
                 ignored_terms = {
@@ -1389,7 +1401,7 @@ with tabs[1]:
                 best_editor = str(route_summary.iloc[0]["Editing route"])
                 best_pool = safe_candidate_sets.get(best_editor, pd.DataFrame())
                 st.success(
-                    f"Highest-priority computational route for **{active_design.get('chassis', 'the selected chassis')}**: "
+                    f"Highest-priority computational route for **{(active_design or {}).get('chassis', 'the analysed chassis')}**: "
                     f"**{best_editor}** for the objective **{objective_text or 'not defined'}**. "
                     "This is a design recommendation, not a prediction of successful editing."
                 )
