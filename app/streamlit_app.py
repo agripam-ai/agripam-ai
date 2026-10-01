@@ -462,72 +462,40 @@ with tabs[0]:
     )
 
     st.divider()
-    with st.expander("Define the intended edit and success measurement", expanded=False):
-        st.caption(
-            "These choices are carried into Genome evaluation, route prioritization, construct design and validation."
+    current_project_brief = st.session_state.get("project_brief", {})
+    editing_objective = str(current_project_brief.get("modification", "Not yet defined"))
+    phenotype_readout = str(current_project_brief.get("readout", ""))
+    if editing_objective != "Not yet defined" or phenotype_readout:
+        st.info(
+            f"Active bank-derived design: **{editing_objective}**; primary readout: "
+            f"**{phenotype_readout or 'not selected'}**. Change this after the SynCom gap and chassis ranking."
         )
-        objective_col, readout_col = st.columns(2)
-        with objective_col:
-            editing_objective = st.selectbox(
-                "Intended modification",
-                ["Not yet defined", "Gene deletion", "Gene insertion", "Sequence replacement", "Point mutation", "CRISPR interference (repression)", "Gene activation"],
-                key="editing_objective",
-                help="Defines which editing routes and construct types are prioritized downstream.",
-            )
-        with readout_col:
-            phenotype_readout_choice = st.selectbox(
-                "Primary measurable readout",
-                [
-                    "Not yet selected", "Fluorescence reporter", "Antifungal inhibition",
-                    "Antibacterial inhibition", "Phosphate solubilization", "Nitrogen transformation",
-                    "Siderophore production", "Lipopeptide or metabolite production",
-                    "Hydrolytic-enzyme activity", "Root colonization", "Growth or fitness",
-                    "Transformation or editing efficiency", "Other — specify",
-                ],
-                key="phenotype_readout_choice",
-                help="Defines the primary validation outcome carried into later design steps.",
-            )
-            if phenotype_readout_choice == "Other — specify":
-                phenotype_readout = st.text_input(
-                    "Describe the other measurable readout",
-                    key="phenotype_readout_other",
-                    placeholder="Enter a measurable phenotype and, if possible, its unit",
-                ).strip()
-            elif phenotype_readout_choice == "Not yet selected":
-                phenotype_readout = ""
-            else:
-                phenotype_readout = phenotype_readout_choice
-        if editing_objective != "Not yet defined" or phenotype_readout:
-            st.info(
-                f"Active project definition: **{editing_objective}**; success measured primarily by "
-                f"**{phenotype_readout or 'a readout still to be selected'}**."
-            )
-    st.session_state["project_brief"] = {
-        "modification": editing_objective,
-        "readout": phenotype_readout,
-    }
+    bank_ranked = bool(st.session_state.get("syncom_result"))
+    design_ready = bool(st.session_state.get("design_handoff"))
     genome_ready = bool(st.session_state.get("full_workflow"))
     objective_ready = editing_objective != "Not yet defined" and bool(phenotype_readout.strip())
     roadmap_steps = [
-        ("1. Define the objective", "Specify deletion, insertion, replacement, repression or activation and its quantitative phenotype.", "Records the objective and connects it to candidate ranking.", "Specified" if objective_ready else "User input required"),
-        ("2. Verify the strain and genome", "Confirm strain identity, assembly quality, annotation and the exact target sequence.", "Processes FASTA, reads or an NCBI assembly into an auditable genome package.", "Genome analysed" if genome_ready else "Run Genome evaluation"),
-        ("3. Choose a compatible editing system", "Assess a native or introduced nuclease, recombinase, integrase or alternative editing route.", "Screens system components and compares literature-supported alternatives.", "Evaluate after genome analysis"),
-        ("4. Identify a compatible target", "Establish the PAM or targeting rule, guide uniqueness, position and gene consequence.", "Ranks supported sites and maps them to annotated genes.", "Evaluate after PAM evidence"),
-        ("5. Define the repair strategy", "Choose an appropriate repair template or a regulatory strategy such as CRISPRi.", "Reports repair-machinery indicators, compatibility and limitations.", "Experimental design required"),
-        ("6. Establish delivery", "Select a strain-compatible delivery, expression and selection architecture.", "Flags restriction, defence and plasmid-compatibility barriers.", "Strain-specific SOP required"),
-        ("7. Evaluate defence barriers", "Assess restriction–modification and other systems acting against incoming DNA.", "Runs available defence and restriction-system analyses.", "Evaluate after genome analysis"),
-        ("8. Define experimental controls", "Include parental, no-guide/delivery-only, positive and lower-ranked comparator controls.", "Generates a control-oriented results template.", "Approve before experiment"),
-        ("9. Confirm the genotype", "Verify the target locus, edit junctions, sequence and construct loss or persistence.", "Links confirmation records to the selected candidate.", "Wet-lab confirmation required"),
-        ("10. Validate function and safety", "Measure fitness, intended phenotype, preservation of beneficial functions and non-target effects.", "Links measurements to predictions for evidence updating.", "Wet-lab validation required"),
+        ("1. Update the plant-associated microbial bank", "Enter laboratory/field-validated agricultural traits, pairwise compatibility and biosafety evidence.", "Provides the measured evidence base; missing measurements remain unknown.", "Bank analysis available" if bank_ranked else "Upload the microbial-bank workbook"),
+        ("2. Build and rank a candidate SynCom", "Choose members manually or let the software assemble a compatible community.", "Ranks communities and members from measured traits, compatibility, redundancy and safety.", "Ranked" if bank_ranked else "Run SynCom analysis"),
+        ("3. Compare shared, unique and missing functions", "Identify functions supplied redundantly, supplied by only one member, or absent.", "Calculates coverage and functional gaps without treating unmeasured traits as absent.", "Calculated" if bank_ranked else "Requires SynCom analysis"),
+        ("4. Define the function to add or regulate", "Select a detected gap or specify another agricultural objective and measurable readout.", "Carries the objective into genome and construct design.", "Defined" if design_ready else "Choose after gap analysis"),
+        ("5. Select the target community member", "Accept the top-ranked editable chassis or select another eligible member using biological knowledge.", "Favors members whose existing functions are covered elsewhere and excludes biosafety holds.", "Selected" if design_ready else "Choose from the chassis ranking"),
+        ("6. Verify the selected member and its exact genome", "Provide the selected isolate's assembly or reads and confirm its identity and annotation.", "Builds an auditable, strain-specific genome analysis.", "Genome analysed" if genome_ready else "Run Genome evaluation"),
+        ("7. Assess native and introduced editing feasibility", "Evaluate native CRISPR components, PAM evidence, introduced editors, repair and delivery barriers.", "Compares native evidence, Cas9/dCas9, Cas12a and supported alternatives.", "Evaluated" if genome_ready else "Requires the exact genome"),
+        ("8. Protect beneficial and developmental functions", "Reject unintended targets overlapping agricultural, growth/development or user-protected functions.", "Applies annotation-based exclusion before route and target ranking.", "Applied during target ranking"),
+        ("9. Rank the editing route and target", "Match the intended modification to a unique, correctly positioned and deliverable target.", "Produces an objective-aware route table and candidate ranking.", "Available after genome analysis"),
+        ("10. Build the construct and controls", "Select the required parts, repair/regulatory strategy and parental, negative and comparator controls.", "Checks constructs and creates a traceable experiment tracker.", "Experimental design"),
+        ("11. Confirm genotype and intended function", "Sequence-confirm the edit and measure the selected agricultural readout.", "Links results to the selected construct and prediction.", "Wet-lab validation"),
+        ("12. Recheck fitness and SynCom compatibility", "Confirm that the edited member retains acceptable growth, beneficial functions and community behavior.", "Returns measured evidence to the decision record.", "Wet-lab/community validation"),
     ]
-    completed_foundations = int(objective_ready) + int(genome_ready)
-    st.progress(completed_foundations / 2, text=f"Computational preparation foundations completed: {completed_foundations}/2")
-    with st.expander("View the complete project roadmap", expanded=False):
-        st.dataframe(
-            pd.DataFrame(roadmap_steps, columns=["Stage", "What is required", "AgriPAM-AI contribution", "Status"]),
-            hide_index=True,
-            width="stretch",
-        )
+    completed_foundations = int(bank_ranked) + int(design_ready or objective_ready) + int(genome_ready)
+    st.progress(
+        completed_foundations / 3,
+        text=f"Bank-to-edit foundations completed: {completed_foundations}/3 (bank ranking, design decision, exact genome)",
+    )
+    with st.expander("View the complete bank-to-edit project roadmap", expanded=False):
+        for stage, required, contribution, status in roadmap_steps:
+            st.markdown(f"**{stage} — {status}**  \n{required}  \n*Software role:* {contribution}")
     st.caption(
         "AgriPAM-AI supports evidence collection and design prioritization. Delivery, successful editing, "
         "phenotype and safety require an approved strain-specific procedure and physical validation."
@@ -1322,8 +1290,20 @@ with tabs[1]:
                 product_text = route_candidates.get(
                     "product", pd.Series("", index=route_candidates.index)
                 ).fillna("").astype(str).str.lower()
-                route_candidates["protected_annotation_overlap"] = product_text.apply(
+                user_protected_overlap = product_text.apply(
                     lambda value: any(term in value for term in protected_terms)
+                )
+                growth_or_development_flag = ~route_candidates.get(
+                    "growth_relevance_screen", pd.Series("not flagged", index=route_candidates.index)
+                ).fillna("not flagged").astype(str).str.lower().isin(["", "not flagged"])
+                agricultural_function_flag = ~route_candidates.get(
+                    "agronomic_category_screen", pd.Series("not flagged", index=route_candidates.index)
+                ).fillna("not flagged").astype(str).str.lower().isin(["", "not flagged"])
+                route_candidates["protected_annotation_overlap"] = (
+                    user_protected_overlap | growth_or_development_flag | agricultural_function_flag
+                )
+                route_candidates["automatic_beneficial_gene_exclusion"] = (
+                    growth_or_development_flag | agricultural_function_flag
                 )
                 route_candidates["objective_annotation_match"] = product_text.apply(
                     lambda value: any(term in value for term in objective_terms)
@@ -1386,7 +1366,8 @@ with tabs[1]:
                         "Editing route": editor,
                         "PAM": compatibility.get("pam_rule", "not reported"),
                         "Genome-wide sites": int(compatibility.get("pam_compatible_sites", len(group)) or 0),
-                        "Protected-overlap warnings": int(group["protected_annotation_overlap"].sum()),
+                        "Agricultural/development exclusions": int(group["automatic_beneficial_gene_exclusion"].sum()),
+                        "All protected-site exclusions": int(group["protected_annotation_overlap"].sum()),
                         "Remaining exact-unique": int(len(exact_unique)),
                         "Candidate neutral regions": int(unprotected["is_intergenic_candidate"].sum()),
                         "Objective-annotation matches": int(unprotected["objective_annotation_match"].sum()),
@@ -2252,6 +2233,15 @@ with knowledgebase_bank_entry, st.expander("Upload your microbial bank and calcu
     bank_source = uploaded_bank if uploaded_bank is not None else (
         io.BytesIO((syncom_dir_in / "SynCom_example_filled.xlsx").read_bytes())
         if use_example and (syncom_dir_in / "SynCom_example_filled.xlsx").exists() else None)
+    bank_token = (
+        getattr(uploaded_bank, "file_id", uploaded_bank.name)
+        if uploaded_bank is not None else "synthetic-example" if use_example else None
+    )
+    if bank_token != st.session_state.get("syncom_bank_token"):
+        st.session_state["syncom_bank_token"] = bank_token
+        st.session_state.pop("syncom_result", None)
+        st.session_state.pop("design_handoff", None)
+        st.session_state.pop("project_brief", None)
     if bank_source is None:
         st.info("Upload a workbook, or tick the box above to try the example.")
     else:
@@ -2324,6 +2314,10 @@ with knowledgebase_bank_entry, st.expander("Upload your microbial bank and calcu
                     st.markdown("**Send a bank decision to genome design**")
                     eligible_user_chassis = [str(row["strain"]) for row in result_in["ranking"] if bool(row.get("safety_eligible", False))]
                     if eligible_user_chassis:
+                        st.caption(
+                            "The first option is the software's highest-ranked eligible chassis. You may override it "
+                            "when laboratory knowledge supports another eligible community member."
+                        )
                         chosen_user_chassis = st.selectbox("Selected chassis from this ranking", eligible_user_chassis, key="user_bank_selected_chassis")
                         gap_names = [str(row.get("missing_function", "")) for row in result_in["gaps"] if row.get("missing_function")]
                         chosen_user_objective = st.selectbox(
@@ -2333,6 +2327,17 @@ with knowledgebase_bank_entry, st.expander("Upload your microbial bank and calcu
                         )
                         if chosen_user_objective == "Add another agricultural benefit — specify":
                             chosen_user_objective = st.text_input("Benefit to add", key="user_bank_custom_objective", placeholder="e.g. beta-glucanase or phosphate solubilization").strip()
+                        h1, h2 = st.columns(2)
+                        chosen_user_modification = h1.selectbox(
+                            "Intended genetic change",
+                            ["Gene insertion", "CRISPR interference (repression)", "Gene activation", "Gene deletion", "Sequence replacement", "Point mutation"],
+                            key="user_bank_modification",
+                        )
+                        chosen_user_readout = h2.selectbox(
+                            "Primary validation readout",
+                            ["Antifungal inhibition", "Antibacterial inhibition", "Phosphate solubilization", "Nitrogen transformation", "Siderophore production", "Lipopeptide or metabolite production", "Hydrolytic-enzyme activity", "Root colonization", "Growth or fitness", "Fluorescence reporter", "Transformation or editing efficiency"],
+                            key="user_bank_readout",
+                        )
                         protected_user_functions = st.multiselect(
                             "Functions that must not be disrupted", list(result_in["coverage"]),
                             default=[name for name, score in result_in["coverage"].items() if float(score) >= threshold_in],
@@ -2346,6 +2351,10 @@ with knowledgebase_bank_entry, st.expander("Upload your microbial bank and calcu
                                     "source": "uploaded microbial bank", "community": list(result_in["members"]),
                                     "chassis": chosen_user_chassis, "objective": chosen_user_objective,
                                     "protected_functions": protected_user_functions,
+                                }
+                                st.session_state["project_brief"] = {
+                                    "modification": chosen_user_modification,
+                                    "readout": chosen_user_readout,
                                 }
                                 st.success("Design saved. Open Genome evaluation and provide the exact selected-isolate genome.")
                     st.caption("Top choice under 2,000 random weightings (seed 42): "
@@ -2419,6 +2428,17 @@ with tabs[2], st.expander("Community-aware chassis selection: which SynCom membe
             )
             if chosen_scenario_objective == "Add another agricultural benefit — specify":
                 chosen_scenario_objective = st.text_input("Benefit to add", key="scenario_custom_objective", placeholder="e.g. beta-glucanase or phosphate solubilization").strip()
+            q1, q2 = st.columns(2)
+            chosen_scenario_modification = q1.selectbox(
+                "Intended genetic change",
+                ["Gene insertion", "CRISPR interference (repression)", "Gene activation", "Gene deletion", "Sequence replacement", "Point mutation"],
+                key="scenario_modification",
+            )
+            chosen_scenario_readout = q2.selectbox(
+                "Primary validation readout",
+                ["Antifungal inhibition", "Antibacterial inhibition", "Phosphate solubilization", "Nitrogen transformation", "Siderophore production", "Lipopeptide or metabolite production", "Hydrolytic-enzyme activity", "Root colonization", "Growth or fitness", "Fluorescence reporter", "Transformation or editing efficiency"],
+                key="scenario_readout",
+            )
             protected_options = sorted(set(info.get("functions_covered", [])))
             protected_scenario_functions = st.multiselect("Functions that must not be disrupted", protected_options, default=protected_options, key="scenario_protected_functions")
             if st.button("Use this decision in Genome evaluation", type="primary", key="scenario_handoff"):
@@ -2430,6 +2450,10 @@ with tabs[2], st.expander("Community-aware chassis selection: which SynCom membe
                         "community": list(info.get("bacterial_members", [])) + list(info.get("fungal_members", [])),
                         "chassis": chosen_scenario_chassis, "objective": chosen_scenario_objective,
                         "protected_functions": protected_scenario_functions,
+                    }
+                    st.session_state["project_brief"] = {
+                        "modification": chosen_scenario_modification,
+                        "readout": chosen_scenario_readout,
                     }
                     st.success("Design saved. Open Genome evaluation and provide the exact selected-isolate genome.")
 
