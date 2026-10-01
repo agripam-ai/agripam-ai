@@ -20,6 +20,7 @@ sys.path.insert(0, str(ROOT))
 
 from agripam.core import analyze_ttc_genome, parse_fasta, read_pam_scores, scan_ttc_targets, score_pam  # noqa: E402
 from agripam.editor_targeting import EDITOR_PRESETS, scan_editor_targets  # noqa: E402
+from agripam.knowledgebase import delete_records, merge_records, with_record_ids  # noqa: E402
 from agripam.ncbi import download_genome_fasta, get_assembly_identity, validate_assembly_accession  # noqa: E402
 from agripam.mobile_references import build_tiered_mobile_reference  # noqa: E402
 from agripam.workflow import assemble_reads, read_gff, run_genome_workflow, tool_inventory, zip_results  # noqa: E402
@@ -1916,11 +1917,20 @@ with tabs[3]:
     )
     knowledgebase_bank_entry = st.container()
 
-    with st.expander("Thirty-isolate native-system discovery cohort", expanded=True):
+    cohort_size = (
+        native_cohort["strain"].astype(str).str.strip().replace("", pd.NA).nunique()
+        if "strain" in native_cohort.columns else 0
+    )
+    with st.expander(
+        f"Microbial-bank native-system discovery registry — {cohort_size} isolates",
+        expanded=True,
+    ):
         st.write(
-            "This registry screens every submitted isolate while prioritizing the most promising candidates for "
-            "complete sequencing and native-system validation. Priority is a study-design recommendation, not a "
-            "claim that a CRISPR-Cas system is present or active."
+            "The count reflects the unique isolate codes currently in this discovery registry and updates "
+            "when registry records are added. Uploaded bank measurements support SynCom analysis separately; "
+            "new isolates require discovery records and analysis before results appear here. Priority helps "
+            "select candidates for sequencing and native-system validation; it does not establish that a "
+            "CRISPR-Cas system is present or active."
         )
         if native_cohort.empty:
             st.info("The isolate cohort registry is not available.")
@@ -1961,27 +1971,74 @@ with tabs[3]:
                 "B34 is retained as a comparative reference member. Blank original measurements remain ‘Not measured’."
             )
 
+    st.subheader("Curated evidence database")
+    st.write(
+        "Upload reviewed CSV or TSV records from papers, patents or genome databases. If the database is empty, "
+        "the first valid upload initializes it. Later uploads add new records and update matching records; they "
+        "do not replace the rest of the database. A matching record has the same organism, strain, editing route "
+        "and source ID. Changes remain in this browser session."
+    )
+    if "agricultural_kb_records" not in st.session_state:
+        st.session_state["agricultural_kb_records"] = agricultural_kb.copy()
+    kb = st.session_state["agricultural_kb_records"].copy()
+
     imported_kb = st.file_uploader(
-        "Add reviewed knowledgebase records (TSV or CSV)",
+        "Add reviewed records (TSV or CSV)",
         type=["tsv", "csv"],
         key="agricultural_kb_import",
-        help=("Optional curator input. Use the downloadable table as the schema. Imported rows are added for this "
-              "browser session and remain distinguishable through their source and evidence fields."),
+        help="Use the downloadable table as the schema. Existing matching records are updated; all others remain.",
     )
-    kb = agricultural_kb.copy()
-    if imported_kb is not None:
+    upload_token = getattr(imported_kb, "file_id", None) if imported_kb is not None else None
+    if imported_kb is not None and upload_token != st.session_state.get("agricultural_kb_last_upload"):
         try:
             incoming_kb = pd.read_csv(imported_kb, sep="\t" if imported_kb.name.lower().endswith(".tsv") else ",", keep_default_na=False)
-            missing_kb_columns = [column for column in kb.columns if column not in incoming_kb.columns]
-            if missing_kb_columns:
-                st.error("The imported table is missing required columns: " + ", ".join(missing_kb_columns))
-            else:
-                kb = pd.concat([kb, incoming_kb[kb.columns]], ignore_index=True).drop_duplicates(
-                    subset=["organism", "strain", "editing_route", "source_id"], keep="last"
-                )
-                st.success(f"Added {len(incoming_kb)} curator-supplied record(s) to this session.")
+            kb, merge_summary = merge_records(kb, incoming_kb, agricultural_kb.columns)
+            st.session_state["agricultural_kb_records"] = kb
+            st.session_state["agricultural_kb_last_upload"] = upload_token
+            st.session_state["agricultural_kb_notice"] = (
+                f"Upload applied: {merge_summary['added']} added, {merge_summary['updated']} updated and "
+                f"{merge_summary['unchanged']} unchanged. The database now contains {len(kb)} records."
+            )
+            st.rerun()
         except Exception as error:
             st.error(f"The knowledgebase table could not be read: {error}")
+    if notice := st.session_state.pop("agricultural_kb_notice", None):
+        st.success(notice)
+
+    with st.expander("Delete database records", expanded=False):
+        if kb.empty:
+            st.info("The database is empty. Upload a valid CSV or TSV file to initialize it.")
+        else:
+            tagged_kb = with_record_ids(kb)
+            delete_labels = {
+                f"{row['organism']} — {row['strain']} — {row['editing_route']} — {row['source_id']}": row["record_id"]
+                for _, row in tagged_kb.iterrows()
+            }
+            selected_delete_labels = st.multiselect(
+                "Select records to delete",
+                list(delete_labels),
+                key="agricultural_kb_delete_selection",
+            )
+            d1, d2 = st.columns(2)
+            if d1.button(
+                "Delete selected records",
+                disabled=not selected_delete_labels,
+                key="agricultural_kb_delete_selected",
+            ):
+                ids_to_delete = [delete_labels[label] for label in selected_delete_labels]
+                st.session_state["agricultural_kb_records"] = delete_records(kb, ids_to_delete)
+                st.session_state["agricultural_kb_notice"] = f"Deleted {len(ids_to_delete)} selected record(s)."
+                st.rerun()
+            confirm_clear = d2.checkbox("Confirm full database clear", key="agricultural_kb_confirm_clear")
+            if d2.button(
+                "Clear full database",
+                disabled=not confirm_clear,
+                key="agricultural_kb_clear_all",
+            ):
+                st.session_state["agricultural_kb_records"] = kb.iloc[0:0].copy()
+                st.session_state["agricultural_kb_last_upload"] = None
+                st.session_state["agricultural_kb_notice"] = "The full database was cleared. The next valid upload will initialize it."
+                st.rerun()
 
     reviewed_dates = pd.to_datetime(kb.get("last_reviewed", pd.Series(dtype=str)), errors="coerce")
     latest_review = reviewed_dates.max()
