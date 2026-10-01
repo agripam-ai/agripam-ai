@@ -206,16 +206,16 @@ def load_host_aware_reference(organism: str) -> tuple[str | None, dict]:
 TAB_NAMES = [
     "Start here",
     "Genome evaluation",
-    "SynCom candidate bank",
-    "Agricultural editing knowledgebase",
+    "SynCom evidence examples",
+    "Microbial bank & SynCom design",
     "Software & reproducibility",
     "External validation",
     "Parts & constructs",
 ]
 DISPLAY_ORDER = [
     "Start here",
-    "Agricultural editing knowledgebase",
-    "SynCom candidate bank",
+    "Microbial bank & SynCom design",
+    "SynCom evidence examples",
     "Genome evaluation",
     "Parts & constructs",
     "External validation",
@@ -1889,11 +1889,11 @@ with tabs[1]:
         )
 
 with tabs[3]:
-    st.header("Agricultural Microorganism Editing Knowledgebase")
+    st.header("Plant-associated microbial bank and SynCom design")
     st.info(
-        "A strain-resolved evidence catalogue connecting agricultural microorganisms to published genome-editing "
-        "routes, PAM requirements, genome records and validation needs. It is separate from the fixed three-species "
-        "comparative study.",
+        "Update the laboratory/field-tested microbial bank, build and rank a compatible SynCom, identify functional "
+        "gaps, and send the selected chassis and protected functions to genome design. The curated editing-evidence "
+        "catalogue on this screen supports the later route decision.",
         icon=":material/menu_book:",
     )
     st.warning(
@@ -2049,7 +2049,13 @@ with tabs[3]:
         placeholder="e.g. Bacillus, biocontrol, Cas9",
     )
     evidence_options = sorted(kb["evidence_level"].dropna().unique()) if not kb.empty else []
-    evidence_filter = f2.multiselect("Evidence level", evidence_options, default=evidence_options)
+    evidence_help = (
+        "Experimentally demonstrated: the cited strain was edited or regulated. "
+        "Computationally inferred: a genome-supported hypothesis awaiting testing. "
+        "Transferred evidence: findings from a related strain or taxon. "
+        "Unknown: reviewed sources do not support a conclusion. Evidence applies to the cited strain and route."
+    )
+    evidence_filter = f2.multiselect("Evidence level", evidence_options, default=evidence_options, help=evidence_help)
     source_options = sorted(kb["source_type"].dropna().unique()) if not kb.empty else []
     source_filter = f3.multiselect("Source type", source_options, default=source_options)
     f4, f5, f6 = st.columns(3)
@@ -2082,6 +2088,7 @@ with tabs[3]:
         column_config={
             "organism": st.column_config.TextColumn("Organism", pinned=True),
             "strain": st.column_config.TextColumn("Strain", pinned=True),
+            "evidence_level": st.column_config.TextColumn("Evidence level", help=evidence_help),
             "source_url": st.column_config.LinkColumn("Open evidence", display_text="Open source"),
             "pam_or_target_requirement": st.column_config.TextColumn("PAM / target requirement"),
             "pam_evidence": st.column_config.TextColumn("Meaning of PAM entry", width="large"),
@@ -2098,30 +2105,26 @@ with tabs[3]:
         icon=":material/download:",
     )
 
-    with st.expander("Evidence interpretation and update policy", expanded=True):
-        st.markdown(
-            """
-            - **Experimentally demonstrated:** the cited strain was edited or regulated using the stated route.
-            - **Computationally inferred:** genome evidence supports a hypothesis, but editing has not been demonstrated.
-            - **Transferred evidence:** a related strain or taxon supports feasibility; the target strain still requires testing.
-            - **Unknown:** no defensible conclusion is available from the reviewed sources.
-
-            The bundled release is a reviewed snapshot, not a universal census. New papers, patents and NCBI records must
-            pass curator review before they become evidence records. This prevents automatic searches from being presented
-            as verified biological facts. The update date records curation, not publication or database-release dates.
-            """
-        )
-
     with st.expander("Target-strain editing protocol planner", expanded=True):
         st.caption(
             "Select a literature-supported strain and route to generate a stage-gated experimental plan. "
             "Exact culture, transformation and selection parameters must come from the cited strain-specific method "
             "and your institutionally approved SOP."
         )
-        if kb.empty:
-            st.info("No knowledgebase record is available for protocol planning.")
+        planning_design = st.session_state.get("design_handoff", {})
+        planning_species = str(planning_design.get("organism", "")).strip()
+        planning_kb = kb[
+            kb["organism"].astype(str).str.casefold().eq(planning_species.casefold())
+        ].copy() if planning_species else kb.iloc[0:0].copy()
+        if planning_design:
+            st.write(f"Selected member: **{planning_design.get('chassis', '')}**. Objective: **{planning_design.get('objective', '')}**.")
+        if planning_kb.empty:
+            st.info("Select a ranked community member first. A plan requires a reviewed editing record for its species; "
+                    "if none is available, establish strain identity, genome context and route evidence before planning. "
+                    "Fungal RNAi is an expression-silencing route and does not itself insert a missing gene.")
         else:
-            protocol_options = kb.apply(
+            st.caption("These are species-matched reference methods. Confirm applicability to your selected isolate and genome before use.")
+            protocol_options = planning_kb.apply(
                 lambda row: f"{row['organism']} — {row['strain']} — {row['editing_route']}", axis=1
             ).tolist()
             selected_protocol_label = st.selectbox(
@@ -2129,7 +2132,7 @@ with tabs[3]:
                 protocol_options,
                 key="agricultural_protocol_record",
             )
-            selected_protocol = kb.iloc[protocol_options.index(selected_protocol_label)]
+            selected_protocol = planning_kb.iloc[protocol_options.index(selected_protocol_label)]
             protocol_steps = pd.DataFrame([
                 {"Step": 1, "Stage": "Define the biological objective", "Required action": "Specify the intended edit, measurable agricultural phenotype and functions that must be preserved.", "Output / decision gate": "Approved target-product profile and stop criteria."},
                 {"Step": 2, "Stage": "Confirm strain identity and genome", "Required action": "Verify strain provenance, assembly quality, taxonomic identity and the exact sequence of the intended locus.", "Output / decision gate": "Versioned genome and confirmed target locus."},
@@ -2240,6 +2243,7 @@ with knowledgebase_bank_entry, st.expander("Upload your microbial bank and calcu
     if bank_token != st.session_state.get("syncom_bank_token"):
         st.session_state["syncom_bank_token"] = bank_token
         st.session_state.pop("syncom_result", None)
+        st.session_state.pop("community_alternatives", None)
         st.session_state.pop("design_handoff", None)
         st.session_state.pop("project_brief", None)
     if bank_source is None:
@@ -2264,11 +2268,17 @@ with knowledgebase_bank_entry, st.expander("Upload your microbial bank and calcu
             sheet_members, sheet_fungi = syncom_io.community_from_sheet(sheets_in, user_bank)
             st.success(f"Workbook read: {len(strains_in)} strains, {len(user_bank['functions'])} functions, "
                        f"{len(fungi_seen)} fungal partner(s) with compatibility data.")
+            with st.expander("Review bank traits and identities before selection"):
+                st.dataframe(pd.DataFrame([
+                    {"strain": s, "organism": user_bank["meta"][s].get("identification", ""),
+                     "biosafety_hold": user_bank["meta"][s]["biosafety_hold"], **user_bank["traits"][s]}
+                    for s in strains_in
+                ]), hide_index=True, width="stretch")
             s1, s2, s3 = st.columns(3)
             partner_fungi = s1.multiselect("Fungal anchor(s) of the community", fungi_seen,
                                            default=[f for f in sheet_fungi if f in fungi_seen], key="syncom_fungi")
-            mode = s2.radio("Community", ["Assemble one for me", "I choose the members"],
-                            index=1 if sheet_members else 0, key="syncom_mode")
+            mode = s2.radio("Community", ["Rank alternative communities", "I choose the members"],
+                            index=0, key="syncom_mode")
             threshold_in = s3.slider("A function counts as delivered at score ≥", 1, 5, 2, key="syncom_threshold")
             chosen_members, size_in = [], 4
             if mode == "I choose the members":
@@ -2276,14 +2286,60 @@ with knowledgebase_bank_entry, st.expander("Upload your microbial bank and calcu
                                                 default=[m for m in sheet_members if m in strains_in], key="syncom_members")
             else:
                 size_in = st.slider("Maximum community size", 2, 8, 4, key="syncom_size")
+            desired_functions = st.multiselect(
+                "Agricultural functions wanted in this SynCom", list(user_bank["functions"]),
+                default=list(user_bank["functions"]), format_func=lambda f: user_bank["functions"][f],
+                help="Choose measured functions such as P/K mobilization or pathogen suppression. Add custom function columns to the workbook. Growth on nitrogen-free medium alone does not establish nitrogen fixation.",
+            )
+            st.caption("Community score: 60% desired-function coverage, 25% interaction support, 15% measured function strength. "
+                       "Untested pairs contribute no interaction support; compatibility does not establish mutualism. "
+                       "Biosafety holds and measured inhibitory pairs exclude a proposed combination.")
+            ranking_settings = (bank_token, mode, tuple(partner_fungi), tuple(chosen_members), size_in, threshold_in, tuple(desired_functions))
+            if st.session_state.get("ranking_settings") != ranking_settings:
+                st.session_state["ranking_settings"] = ranking_settings
+                for stale_key in ("community_alternatives", "syncom_result", "design_handoff", "project_brief"):
+                    st.session_state.pop(stale_key, None)
             if st.button("Run SynCom analysis", type="primary", key="syncom_run"):
-                if mode == "I choose the members" and not chosen_members:
-                    st.warning("Choose at least one member, or switch to “Assemble one for me”.")
+                if not desired_functions:
+                    st.warning("Choose at least one desired function.")
+                elif mode == "Rank alternative communities":
+                    from agripam.community_ranking import rank_communities
+                    st.session_state["community_alternatives"] = rank_communities(
+                        {**user_bank, "threshold": threshold_in}, desired_functions, partner_fungi, size_in
+                    )
+                    st.session_state.pop("syncom_result", None)
+                elif len(set(chosen_members + partner_fungi)) < 2:
+                    st.warning("Choose at least two bank members.")
                 else:
                     st.session_state["syncom_result"] = (
                         syncom_io.analyze(user_bank, chosen_members or None, partner_fungi, size_in, threshold_in),
                         bank_issues,
                     )
+            alternatives = st.session_state.get("community_alternatives")
+            if alternatives and mode == "Rank alternative communities":
+                st.subheader("Ranked community alternatives")
+                st.caption(f"{alternatives['evaluated']:,} combinations evaluated. " +
+                           ("Exhaustive search for the selected sizes." if alternatives['exhaustive'] else
+                            "Bounded search: this shortlist does not establish a global optimum."))
+                if not alternatives['rows']:
+                    st.info(alternatives['reason'])
+                else:
+                    st.dataframe(pd.DataFrame(alternatives['rows']), hide_index=True, width="stretch")
+                    st.download_button("Download ranked community alternatives",
+                        pd.DataFrame(alternatives['rows']).to_csv(index=False).encode(),
+                        "syncom_community_alternatives.csv", mime="text/csv")
+                    alternative_index = st.selectbox("Community proposal", range(len(alternatives['rows'])),
+                        format_func=lambda i: f"Rank {i + 1}: {', '.join(alternatives['rows'][i]['members'])}")
+                    selected_members = st.multiselect("Members to keep or add from your bank", strains_in,
+                        default=alternatives['rows'][alternative_index]['members'], key=f"community_members_{bank_token}_{alternative_index}")
+                    if st.button("Evaluate this selected community", key="confirm_ranked_community"):
+                        if len(selected_members) < 2:
+                            st.warning("Select at least two members.")
+                        else:
+                            st.session_state["syncom_result"] = (
+                                syncom_io.analyze(user_bank, selected_members, [], size_in, threshold_in), bank_issues)
+                            st.session_state.pop("design_handoff", None)
+                            st.session_state.pop("project_brief", None)
             if "syncom_result" in st.session_state:
                 result_in, issues_in = st.session_state["syncom_result"]
                 st.subheader("Result")
@@ -2311,6 +2367,9 @@ with knowledgebase_bank_entry, st.expander("Upload your microbial bank and calcu
                     if result_in["gaps"]:
                         st.markdown("**Functional gaps and possible donors**")
                         st.dataframe(pd.DataFrame(result_in["gaps"]), hide_index=True, width="stretch")
+                    st.caption("Compare adding a compatible bank member with editing an existing member. "
+                               "A missing measurement is a reason to test the function before calling it a biological gap. "
+                               "The chassis ranking is provisional until genome and route evidence are available.")
                     st.markdown("**Send a bank decision to genome design**")
                     eligible_user_chassis = [str(row["strain"]) for row in result_in["ranking"] if bool(row.get("safety_eligible", False))]
                     if eligible_user_chassis:
@@ -2350,13 +2409,18 @@ with knowledgebase_bank_entry, st.expander("Upload your microbial bank and calcu
                                 st.session_state["design_handoff"] = {
                                     "source": "uploaded microbial bank", "community": list(result_in["members"]),
                                     "chassis": chosen_user_chassis, "objective": chosen_user_objective,
+                                    "organism": user_bank["meta"][chosen_user_chassis].get("identification", ""),
+                                    "kind": user_bank.get("kind", {}).get(chosen_user_chassis, "bacterium"),
                                     "protected_functions": protected_user_functions,
                                 }
                                 st.session_state["project_brief"] = {
                                     "modification": chosen_user_modification,
                                     "readout": chosen_user_readout,
                                 }
-                                st.success("Design saved. Open Genome evaluation and provide the exact selected-isolate genome.")
+                                st.rerun()
+                        saved_design = st.session_state.get("design_handoff", {})
+                        if saved_design.get("chassis") == chosen_user_chassis:
+                            st.success("Design saved. The planner now uses this member. Open Genome evaluation with its exact isolate genome.")
                     st.caption("Top choice under 2,000 random weightings (seed 42): "
                                + ", ".join(f"{k} {v:.0%}" for k, v in result_in["sensitivity"].items()))
                     st.download_button("Download the results (.xlsx)", syncom_io.results_to_xlsx(result_in, issues_in),
@@ -2366,7 +2430,20 @@ with knowledgebase_bank_entry, st.expander("Upload your microbial bank and calcu
                 st.warning("Decision support only. Scores are not measured editing efficiency, safety clearance or "
                            "field performance; compatibility rests on the tests you entered.")
 
-with tabs[2], st.expander("Community-aware chassis selection: which SynCom member should be edited?", expanded=True):
+with tabs[2]:
+    st.subheader("Your selected community")
+    selected_bank_result = st.session_state.get("syncom_result")
+    if selected_bank_result:
+        selected_bank_result = selected_bank_result[0]
+        st.write("Members: " + ", ".join(selected_bank_result["members"]))
+        st.dataframe(pd.DataFrame(selected_bank_result["ranking"]), hide_index=True, width="stretch")
+        st.caption("Change members in Agricultural editing knowledgebase, then evaluate the selected community again. "
+                   "Chassis rank reflects measured interactions, function redundancy and declared editing precedent; "
+                   "it does not establish the presence of a native editor or fungal RNAi activity.")
+    else:
+        st.info("Upload your bank in Agricultural editing knowledgebase, rank community alternatives and select at least two members.")
+
+with tabs[2], st.expander("Reference demonstration: precomputed communities", expanded=False):
     st.write(
         "Starting from strains whose agricultural effects were already tested in the laboratory, this module asks "
         "which member of a compatible community is the best genome-editing chassis. It favours a member whose own "
@@ -2377,7 +2454,7 @@ with tabs[2], st.expander("Community-aware chassis selection: which SynCom membe
         st.info("Run `python scripts/run_syncom_selector.py` to generate the SynCom selector results.")
     else:
         syncom_summary = json.loads((syncom_dir / "summary.json").read_text())
-        scenario = st.selectbox("Community", list(syncom_summary), key="syncom_scenario",
+        scenario = st.selectbox("Reference example (separate from your selected community)", list(syncom_summary), key="syncom_scenario",
                                 format_func=lambda key: key.replace("_", " "))
         info = syncom_summary[scenario]
         c1, c2, c3 = st.columns(3)

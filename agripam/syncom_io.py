@@ -15,6 +15,7 @@ The workbook has these sheets (see data/syncom/SynCom_input_template.xlsx):
 from __future__ import annotations
 
 import io
+from itertools import combinations
 from typing import Any
 
 import pandas as pd
@@ -209,6 +210,12 @@ def analyze(bank: dict, members: list[str] | None = None, fungi: list[str] | Non
     else:
         community = anchors + [m for m in members if m not in anchors]
     warnings = []
+    for a, b in combinations(community, 2):
+        pair = syncom.pair_score(a, b, bank)
+        if pair is None:
+            warnings.append(f"{a} / {b}: interaction not measured; compatibility unresolved.")
+        elif pair < 0.5:
+            warnings.append(f"{a} / {b}: measured inhibitory or low compatibility; revise the community before editing.")
     for i, a in enumerate(anchors):
         for b in anchors[i + 1:]:
             score = syncom.pair_score(a, b, bank)
